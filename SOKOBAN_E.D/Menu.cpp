@@ -1,143 +1,105 @@
 #include "Menu.h"
 
+
+Menu::~Menu()
+{
+
+}
+
 Menu::Menu(int ancho, int alto, string titulo)
 {
 	fps = 60;
+	menuPrincipal = new RenderWindow(VideoMode(ancho, alto), titulo);//creamos la pantalla del menu principal
+	menuPrincipal->setFramerateLimit(fps);//se limita los fps a la pantalla
 
-	ventana1 = new RenderWindow(VideoMode(ancho, alto), titulo);
-
-	ventana1->setFramerateLimit(fps);
-
-	background = new Texture;
-	sprite1 = new Sprite;
-
-	background->loadFromFile("resource/bck2.jpg");
-
-	sprite1->setTexture(*background);
-	//sprite1->setScale(400.f/sprite1->getTexture()->getSize().x,400.f/sprite1->getTexture()->getSize().y);//dimension deseada dividido tamano actual
-	sprite1->setScale(((float)ventana1->getSize().x / sprite1->getTexture()->getSize().x),((float) ventana1->getSize().y / sprite1->getTexture()->getSize().y));
-	//IntRect posicion(128,384,128,128);
-	//sprite1->setTextureRect(posicion);
-
+	texturaFondo = new Texture;
+	basePantalla = new Sprite;
+	texturaFondo->loadFromFile("resource/bck2.jpg");
+	basePantalla->setTexture(*texturaFondo);
+	basePantalla->setScale(((float)menuPrincipal->getSize().x / basePantalla->getTexture()->getSize().x),((float)menuPrincipal->getSize().y / basePantalla->getTexture()->getSize().y));
+	
 	fuente = new Font();
 	fuente->loadFromFile("fonts/PressStart2P-Regular.ttf");
 
-	/*label1 = new Text();
-	label2 = new Text();
-	label3 = new Text();
-	label4 = new Text();
-
-	label1->setFont(*fuente);
-	label2->setFont(*fuente);
-	label3->setFont(*fuente);
-	label4->setFont(*fuente);
-
-	label1->setFillColor(Color::White);
-	label2->setFillColor(Color::White);
-	label3->setFillColor(Color::White);
-	label4->setFillColor(Color::White);
-
-	label1->setString("PLAY");
-	label2->setString("OPCIONES");
-	label3->setString("ACERCA DE");
-	label4->setString("EXIT");
-
-	label1->setCharacterSize(40);
-	label2->setCharacterSize(40);
-	label3->setCharacterSize(40);
-	label4->setCharacterSize(40);
-
-	label1->setPosition(300,100);
-	label2->setPosition(300, 150);
-	label3->setPosition(300, 200);
-	label4->setPosition(300, 250);*/
-
-	pv[0].setFont(*fuente);
-	pv[0].setString("PLAY");
-	pv[0].setFillColor(Color::Blue);
-	pv[0].setPosition(300, 100);
-	pv[0].setCharacterSize(40);
-
-	pv[1].setFont(*fuente);
-	pv[1].setString("OPCIONES");
-	pv[1].setFillColor(Color::White);
-	pv[1].setPosition(300, 150);
-	pv[1].setCharacterSize(40);
-
-	pv[2].setFont(*fuente);
-	pv[2].setString("ACERCA DE");
-	pv[2].setFillColor(Color::White);
-	pv[2].setPosition(300, 200);
-	pv[2].setCharacterSize(40);
-
-	pv[3].setFont(*fuente);
-	pv[3].setString("EXIT");
-	pv[3].setFillColor(Color::White);
-	pv[3].setPosition(300, 250);
-	pv[3].setCharacterSize(40);
-
 	MenuSeleccionado = 0;
 
-	evento1 = new Event;
-	gameloop();
+	//Boton jugar
+	vectorBotones[0].setFont(*fuente);
+	vectorBotones[0].setString("Jugar");
+	vectorBotones[0].setFillColor(Color::Blue);
+	vectorBotones[0].setPosition(300, 100);
+	vectorBotones[0].setCharacterSize(40);
 
+	//Boton opciones
+	vectorBotones[1].setFont(*fuente);
+	vectorBotones[1].setString("Opciones");
+	vectorBotones[1].setFillColor(Color::White);
+	vectorBotones[1].setPosition(300, 150);
+	vectorBotones[1].setCharacterSize(40);
+
+	//Boton acercade
+	vectorBotones[2].setFont(*fuente);
+	vectorBotones[2].setString("Acerca de");
+	vectorBotones[2].setFillColor(Color::White);
+	vectorBotones[2].setPosition(300, 200);
+	vectorBotones[2].setCharacterSize(40);
+
+	//Boton de salir
+	vectorBotones[3].setFont(*fuente);
+	vectorBotones[3].setString("Salir");
+	vectorBotones[3].setFillColor(Color::White);
+	vectorBotones[3].setPosition(300, 250);
+	vectorBotones[3].setCharacterSize(40);
+
+	evento = new Event;
+	gameloop();
 }
 
 void Menu:: gameloop()
 {
-	while (ventana1->isOpen())
+	while (menuPrincipal->isOpen())
 	{
-		ejecutar_eventos();
-		
-
+		ejecutarEventos();
 		dibujar();
 	}
 }
 
 void Menu::dibujar()
 {
-	ventana1->clear();
-	ventana1->draw(*sprite1);
-	//ventana1->draw(*label1);
-	//ventana1->draw(*label2);
-	//ventana1->draw(*label3);
-	//ventana1->draw(*label4);
-		for (int i = 0;i < Max_menu; i++)
+	menuPrincipal->clear();
+	menuPrincipal->draw(*basePantalla);
+	for (int i = 0;i < Max_menu; i++)
 	{
-		ventana1->draw(pv[i]);
+		menuPrincipal->draw(vectorBotones[i]);
 	}
-
-	ventana1->display();
+	menuPrincipal->display();
 }
 
 
 
-void Menu::ejecutar_eventos()
+void Menu::ejecutarEventos()
 {
-	while (ventana1->pollEvent(*evento1))
+	while (menuPrincipal->pollEvent(*evento))
 	{
-		if (evento1->type == Event::Closed)
+		if (evento->type == Event::Closed)
 		{
-			ventana1->close();
+			menuPrincipal->close();
 			exit(1);
 		}
-		if (evento1->type == Event::KeyReleased)
+		if (evento->type == Event::KeyReleased)
 		{
-			if (evento1->key.code == Keyboard::Up)
+			if (evento->key.code == Keyboard::Up)
 			{
 				MoverArriba();
 				break;
 			}
-			if (evento1->key.code == Keyboard::Down)
+			if (evento->key.code == Keyboard::Down)
 			{
 				Moverabajo();
 				break;
 			}
-			if (evento1->key.code == Keyboard::Return)
+			if (evento->key.code == Keyboard::Return)
 			{
-				
-				
-
 				int x = MenuPressed();
 				if (x == 0)
 				{
@@ -149,35 +111,25 @@ void Menu::ejecutar_eventos()
 				}
 			}
 		}
-		/*	switch (evento1->type)
-			{
-			case Event::Closed:
-				ventana1->close();
-				exit(1);
-				break;
-
-			case Event::KeyPressed:
-				if (Keyboard::isKeyPressed(Keyboard::A))
-				{
-					exit(1);
-				}
-			}
-		}*/
+	
 	}
 }
 
+
+
+//metodos para moverse entre las opciones con las teclas de arriba y abajo del teclado
 void Menu::MoverArriba()
 {
 	if (MenuSeleccionado - 1 >= 0)
 	{
-		pv[MenuSeleccionado].setFillColor(Color::White);
+		vectorBotones[MenuSeleccionado].setFillColor(Color::White);
 
 		MenuSeleccionado--;
 		if (MenuSeleccionado == -1)
 		{
 			MenuSeleccionado = 2;
 		}
-		pv[MenuSeleccionado].setFillColor(Color::Blue);
+		vectorBotones[MenuSeleccionado].setFillColor(Color::Blue);
 	}
 }
 
@@ -185,17 +137,13 @@ void Menu::Moverabajo()
 {
 	if (MenuSeleccionado + 1 <= Max_menu)
 	{
-		pv[MenuSeleccionado].setFillColor(Color::White);
+		vectorBotones[MenuSeleccionado].setFillColor(Color::White);
 		MenuSeleccionado++;
 		if (MenuSeleccionado == Max_menu)
 		{
 			MenuSeleccionado = 0;
 		}
-		pv[MenuSeleccionado].setFillColor(Color::Blue);
+		vectorBotones[MenuSeleccionado].setFillColor(Color::Blue);
 	}
 }
 
-Menu::~Menu()
-{
-
-}

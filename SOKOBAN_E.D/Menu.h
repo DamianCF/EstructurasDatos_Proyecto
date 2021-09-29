@@ -10,31 +10,26 @@ using namespace std;
 class Menu
 {
 private:
-	RenderWindow* ventana1;
-	int fps;
-	Texture* background;
-	Sprite* sprite1;
-	Event* evento1;
-	Juego* game;
-	Opciones* options;
 
 	int MenuSeleccionado;
+	int fps;//cantidad de frames por segundo en que se actualiza la pantalla
+	RenderWindow* menuPrincipal;//ventada que almacena el menu principal de la aplicacion
+	Texture* texturaFondo;
+	Sprite* basePantalla;
+	Event* evento;
+	Juego* game;
+	Opciones* options;
 	Font *fuente;
-	Text *label1;
-	Text *label2;
-	Text *label3;
-	Text *label4;
-	Text pv[Max_menu];
+	Text vectorBotones[Max_menu];
 
 public:
+
 	Menu(int ancho, int alto, string titulo);
 	void gameloop();
 	void dibujar();
-	void ejecutar_eventos();
-
+	void ejecutarEventos();
 	void MoverArriba();
 	void Moverabajo();
-
 	int MenuPressed()
 	{
 		return MenuSeleccionado;
