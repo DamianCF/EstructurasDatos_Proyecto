@@ -13,16 +13,20 @@ private:
 
 	int MenuSeleccionado;
 	int fps;//cantidad de frames por segundo en que se actualiza la pantalla
+	
 	RenderWindow* menuPrincipal;//ventada que almacena el menu principal de la aplicacion
 	Texture* texturaFondo;
 	Sprite* basePantalla;
-	Event* evento;
+	Event* evento; 
+
 	Juego* game;
 	Opciones* options;
 	Font *fuente;
 	Text vectorBotones[Max_menu];
 
 public:
+
+	
 
 	Menu(int ancho, int alto, string titulo);
 	void gameloop();

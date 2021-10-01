@@ -1,4 +1,5 @@
 #include "Juego.h"
+
 #include "Menu.h"
 
 Juego::Juego(int ancho, int alto, string titu)
@@ -8,7 +9,7 @@ Juego::Juego(int ancho, int alto, string titu)
 	sprite1 = new Sprite;
 	evento = new Event;
 
-	background->loadFromFile("resource/bck3.jpg");
+	background->loadFromFile("resource/fondoLadrillos.jpg");
 	sprite1->setTexture(*background);
 	sprite1->setScale(((float)ventana2->getSize().x / sprite1->getTexture()->getSize().x), ((float)ventana2->getSize().y / sprite1->getTexture()->getSize().y));
 	
@@ -59,6 +60,7 @@ void Juego::ejecutar()
 			if (evento->key.code == Keyboard::Escape)
 			{
 				Menu* backmain;
+				ventana2->close();
 				backmain = new Menu (960, 540, "SOKOBAN");
 			}
 		}

@@ -14,7 +14,7 @@ Menu::Menu(int ancho, int alto, string titulo)
 
 	texturaFondo = new Texture;
 	basePantalla = new Sprite;
-	texturaFondo->loadFromFile("resource/bck2.jpg");
+	texturaFondo->loadFromFile("resource/fondoMenuPrincipal.jpg");
 	basePantalla->setTexture(*texturaFondo);
 	basePantalla->setScale(((float)menuPrincipal->getSize().x / basePantalla->getTexture()->getSize().x),((float)menuPrincipal->getSize().y / basePantalla->getTexture()->getSize().y));
 	
@@ -98,15 +98,17 @@ void Menu::ejecutarEventos()
 				Moverabajo();
 				break;
 			}
-			if (evento->key.code == Keyboard::Return)
+			if (evento->key.code == Keyboard::Return)// tecla presionada fue la tecla "ENTER"
 			{
 				int x = MenuPressed();
-				if (x == 0)
+				if (x == 0)//ingresa a la pantalla de juego
 				{
+					menuPrincipal->close();
 					game = new Juego(960, 540, "SOKOBAN");
 				}
-				if (x == 1)
+				if (x == 1)// ingresa a la pantalla de opciones
 				{
+					menuPrincipal->close();
 					options = new Opciones(960, 540, "SOKOBAN");
 				}
 			}

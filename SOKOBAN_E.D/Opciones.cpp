@@ -1,4 +1,5 @@
 #include "Opciones.h"
+#include "Menu.h"
 
 Opciones::Opciones(int ancho, int alto, string titu)
 {
@@ -7,7 +8,7 @@ Opciones::Opciones(int ancho, int alto, string titu)
 	sprite1 = new Sprite;
 	evento = new Event;
 
-	background->loadFromFile("resource/bck4.jpg");
+	background->loadFromFile("resource/fondoOpciones.jpg");
 	sprite1->setTexture(*background);
 	sprite1->setScale(((float)ventana3->getSize().x / sprite1->getTexture()->getSize().x), ((float)ventana3->getSize().y / sprite1->getTexture()->getSize().y));
 
@@ -51,6 +52,13 @@ void Opciones::ejecutar()
 		{
 			ventana3->close();
 			exit(1);
+		}
+
+		if (evento->key.code == Keyboard::Escape)// tecla presionada fue la tecla "ENTER"
+		{
+			Menu* devolver;
+			ventana3->close();
+			devolver = new Menu(960, 540, "SOKOBAN");
 		}
 
 	}
