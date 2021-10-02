@@ -12,14 +12,14 @@ Menu::Menu(int ancho, int alto, string titulo)
 	menuPrincipal = new RenderWindow(VideoMode(ancho, alto), titulo);//creamos la pantalla del menu principal
 	menuPrincipal->setFramerateLimit(fps);//se limita los fps a la pantalla
 
-	texturaFondo = new Texture;
-	basePantalla = new Sprite;
+	texturaFondo = new Texture;// se crea la textura
+	basePantalla = new Sprite;// se crea la base de la pantalla
 	texturaFondo->loadFromFile("resource/fondoMenuPrincipal.jpg");
 	basePantalla->setTexture(*texturaFondo);
 	basePantalla->setScale(((float)menuPrincipal->getSize().x / basePantalla->getTexture()->getSize().x),((float)menuPrincipal->getSize().y / basePantalla->getTexture()->getSize().y));
 	
 	fuente = new Font();
-	fuente->loadFromFile("fonts/PressStart2P-Regular.ttf");
+	fuente->loadFromFile("fonts/PressStart2P-Regular.ttf");  
 
 	MenuSeleccionado = 0;
 
@@ -111,6 +111,11 @@ void Menu::ejecutarEventos()
 					menuPrincipal->close();
 					options = new Opciones(960, 540, "SOKOBAN");
 				}
+				if (x == 2) 
+				{
+					menuPrincipal->close();
+					info = new AcercaDe(960, 540, "SOKOBAN");
+				}
 			}
 		}
 	
@@ -148,4 +153,5 @@ void Menu::Moverabajo()
 		vectorBotones[MenuSeleccionado].setFillColor(Color::Blue);
 	}
 }
+
 

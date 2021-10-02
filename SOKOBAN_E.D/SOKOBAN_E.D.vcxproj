@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AcercaDe.cpp" />
     <ClCompile Include="Juego.cpp" />
     <ClCompile Include="ListaOrtogonal.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Opciones.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AcercaDe.h" />
     <ClInclude Include="Juego.h" />
     <ClInclude Include="ListaOrtogonal.h" />
     <ClInclude Include="Menu.h" />
