@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Juego.h"
 #include "Opciones.h"
-#include "AcercaDe.h"
+
 using namespace sf;
 using namespace std;
 
@@ -21,7 +21,6 @@ class Menu{
 		Event* evento; 
 		Juego* game;
 		Opciones* options;
-		AcercaDe* info;
 		Font *fuente;
 		Text vectorBotones[Max_menu];
 

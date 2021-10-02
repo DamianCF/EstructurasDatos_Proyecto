@@ -114,7 +114,7 @@ void Menu::ejecutarEventos()
 				if (x == 2) 
 				{
 					menuPrincipal->close();
-					info = new AcercaDe(960, 540, "SOKOBAN");
+					//info = new AcercaDe(960, 540, "SOKOBAN");
 				}
 			}
 		}
