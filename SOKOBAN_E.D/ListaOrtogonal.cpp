@@ -27,7 +27,7 @@ void ListaOrtogonal::crear(int n, int m, Nodo*& head)
 			else
 			{
 				p->setAnt(q);;
-				p->setSig(p);
+				q->setSig(p);
 				q = p;
 			}
 			if (i == 1)

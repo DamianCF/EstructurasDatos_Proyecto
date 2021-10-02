@@ -8,23 +8,23 @@ using namespace std;
 class Nodo
 {
 private:
+	char dato;
 	Nodo* siguiente;
 	Nodo* anterior;
 	Nodo* arriba;
 	Nodo* abajo;
-	int dato;
+	
 public:
 	Nodo();
-	Nodo(int,Nodo *,Nodo *,Nodo *,Nodo *);
+	Nodo(char,Nodo *,Nodo *,Nodo *,Nodo *);
+	void setDato(char dato);
 	void setSig(Nodo* siguiente);
 	void setAnt(Nodo* anterior);
 	void setArriba(Nodo* arriba);
 	void setAbajo(Nodo* abajo);
-	void setDato(int dato);
-	int getDato();
+	char getDato();
 	Nodo* getSig();
 	Nodo* getAnt();
 	Nodo* getArriba();
 	Nodo* getAbajo();
-	Nodo* nuevo();
 };

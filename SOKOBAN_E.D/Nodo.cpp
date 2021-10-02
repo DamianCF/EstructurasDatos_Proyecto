@@ -1,14 +1,14 @@
 #include "Nodo.h"
 
 Nodo::Nodo() {
-	this->dato = NULL;
+	this->dato = 0;
 	this->siguiente = NULL;
 	this->anterior = NULL;
 	this->arriba = NULL;
 	this->abajo = NULL;
 }
 
-Nodo::Nodo(int dato, Nodo* siguiente, Nodo* anterior, Nodo* arriba, Nodo* abajo) {
+Nodo::Nodo(char dato, Nodo* siguiente, Nodo* anterior, Nodo* arriba, Nodo* abajo) {
 	this->dato = dato;
 	this->siguiente = siguiente;
 	this->anterior = anterior;
@@ -17,7 +17,7 @@ Nodo::Nodo(int dato, Nodo* siguiente, Nodo* anterior, Nodo* arriba, Nodo* abajo)
 }
 
 
-void Nodo::setDato(int dato) {
+void Nodo::setDato(char dato) {
 	this->dato = dato;
 }
 
@@ -37,7 +37,7 @@ void Nodo::setAbajo(Nodo* abajo){
 	this->abajo = abajo;
 }
 
-int Nodo::getDato()
+char Nodo::getDato()
 {
 	return dato;
 }
