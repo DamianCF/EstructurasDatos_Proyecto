@@ -7,6 +7,16 @@ Juego::Juego(int ancho, int alto, string titu)
 	ventana2 = new RenderWindow(VideoMode(ancho,alto),titu);
 	background = new Texture;
 	sprite1 = new Sprite;
+
+	Tmuros = new Texture;
+	Tmuros->loadFromFile("resource/1.png");
+	IntRect posicion(1408,768 , 128, 128);
+	Smuro = new Sprite;
+	Smuro->setTextureRect(posicion);
+	Smuro->setTexture(*Tmuros);
+	//Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
+	//Smuro->setPosition(580, 200);
+
 	evento = new Event;
 
 	background->loadFromFile("resource/fondoLadrillos.jpg");
@@ -43,6 +53,7 @@ void Juego::dibujar()
 	ventana2->clear();
 	ventana2->draw(*sprite1);
 	ventana2->draw(*label1);
+	ventana2->draw(*Smuro);
 	ventana2->display();
 }
 

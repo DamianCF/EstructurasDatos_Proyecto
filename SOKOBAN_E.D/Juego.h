@@ -26,5 +26,14 @@ private:
 	Font* fuente;
 	Text* label1;
 
+	Texture* Tmuros;
+	Sprite* Smuro;
+
+	Texture* Tpiso;
+	Sprite* Spiso;
+
+	Texture* Tpersonaje;
+	Sprite* Spersonaje;
+
 
 };
