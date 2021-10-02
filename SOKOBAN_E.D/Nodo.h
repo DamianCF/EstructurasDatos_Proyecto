@@ -21,4 +21,10 @@ public:
 	void setArriba(Nodo* arriba);
 	void setAbajo(Nodo* abajo);
 	void setDato(int dato);
+	int getDato();
+	Nodo* getSig();
+	Nodo* getAnt();
+	Nodo* getArriba();
+	Nodo* getAbajo();
+	Nodo* nuevo();
 };
