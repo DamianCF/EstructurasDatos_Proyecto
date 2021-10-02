@@ -357,7 +357,3 @@ MigrationBackup/
 *.lastbuildstate
 
 *.recipe
-
-*.filters
-
-SOKOBAN_E.D/SOKOBAN_E.D.vcxproj
