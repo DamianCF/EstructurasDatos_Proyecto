@@ -7,8 +7,8 @@ using namespace sf;
 using namespace std;
 
 #define Max_menu 4
-class Menu
-{
+
+class Menu{
 private:
 
 	int MenuSeleccionado;
@@ -25,18 +25,17 @@ private:
 	Text vectorBotones[Max_menu];
 
 public:
-
-	
-
 	Menu(int ancho, int alto, string titulo);
 	void gameloop();
 	void dibujar();
 	void ejecutarEventos();
 	void MoverArriba();
 	void Moverabajo();
+
 	int MenuPressed()
 	{
 		return MenuSeleccionado;
 	}
+
 	~Menu();
 };

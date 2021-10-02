@@ -3,14 +3,14 @@
 
 Opciones::Opciones(int ancho, int alto, string titu)
 {
-	ventana3 = new RenderWindow(VideoMode(ancho, alto),titu);
-	background = new Texture;
-	sprite1 = new Sprite;
+	menuOpciones = new RenderWindow(VideoMode(ancho, alto),titu);
+	texturaFondo = new Texture;
+	basePantalla = new Sprite;
 	evento = new Event;
 
-	background->loadFromFile("resource/fondoOpciones.jpg");
-	sprite1->setTexture(*background);
-	sprite1->setScale(((float)ventana3->getSize().x / sprite1->getTexture()->getSize().x), ((float)ventana3->getSize().y / sprite1->getTexture()->getSize().y));
+	texturaFondo->loadFromFile("resource/fondoOpciones.jpg");
+	basePantalla->setTexture(*texturaFondo);
+	basePantalla->setScale(((float)menuOpciones->getSize().x / basePantalla->getTexture()->getSize().x), ((float)menuOpciones->getSize().y / basePantalla->getTexture()->getSize().y));
 
 
 	fuente = new Font();
@@ -27,7 +27,7 @@ Opciones::Opciones(int ancho, int alto, string titu)
 
 void Opciones::gameloop()
 {
-	while (ventana3->isOpen())
+	while (menuOpciones->isOpen())
 	{
 		ejecutar();
 
@@ -38,26 +38,26 @@ void Opciones::gameloop()
 
 void Opciones::dibujar()
 {
-	ventana3->clear();
-	ventana3->draw(*sprite1);
-	ventana3->draw(*label);
-	ventana3->display();
+	menuOpciones->clear();
+	menuOpciones->draw(*basePantalla);
+	menuOpciones->draw(*label);
+	menuOpciones->display();
 }
 
 void Opciones::ejecutar()
 {
-	while (ventana3->pollEvent(*evento))
+	while (menuOpciones->pollEvent(*evento))
 	{
 		if (evento->type == Event::Closed)
 		{
-			ventana3->close();
+			menuOpciones->close();
 			exit(1);
 		}
 
 		if (evento->key.code == Keyboard::Escape)// tecla presionada fue la tecla "ENTER"
 		{
 			Menu* devolver;
-			ventana3->close();
+			menuOpciones->close();
 			devolver = new Menu(960, 540, "SOKOBAN");
 		}
 
