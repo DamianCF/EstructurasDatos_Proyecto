@@ -349,3 +349,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+*.exe
+
+*.idb
+
+*.lastbuildstate
+
+*.recipe
