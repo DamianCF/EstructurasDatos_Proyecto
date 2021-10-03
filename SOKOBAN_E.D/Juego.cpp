@@ -16,10 +16,17 @@ Juego::Juego(int ancho, int alto, string titu)
 	Tmuros->loadFromFile("resource/1.png");
 	IntRect posicion(1408,768 , 128, 128);
 	Smuro = new Sprite;
+	Smuro2 = new Sprite;
 	Smuro->setTextureRect(posicion);
 	Smuro->setTexture(*Tmuros);*/
 	//Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
 	//Smuro->setPosition(580, 200);
+
+	Smuro2->setTextureRect(posicion);
+	Smuro2->setTexture(*Tmuros);
+	Smuro2->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
+	Smuro2->setPosition(620, 200);
+	
 
 	evento = new Event;
 
