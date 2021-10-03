@@ -7,7 +7,7 @@ using namespace std;
 
 class Nodo
 {
-private:
+protected:
 	char dato;
 	Nodo* siguiente;
 	Nodo* anterior;

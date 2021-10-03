@@ -1,5 +1,4 @@
 #include "Juego.h"
-
 #include "Menu.h"
 
 Juego::Juego(int ancho, int alto, string titu)
@@ -39,6 +38,7 @@ Juego::Juego(int ancho, int alto, string titu)
 
 void Juego::gameloop()
 {
+	crearGrid();
 	while (ventana2->isOpen())
 	{
 		ejecutar();
@@ -50,11 +50,13 @@ void Juego::gameloop()
 
 void Juego::dibujar()
 {
+	
 	ventana2->clear();
 	ventana2->draw(*sprite1);
 	ventana2->draw(*label1);
 	ventana2->draw(*Smuro);
 	ventana2->display();
+	
 }
 
 void Juego::ejecutar()
@@ -80,7 +82,11 @@ void Juego::ejecutar()
 
 void Juego::crearGrid()
 {
-
+	obj = new ListaOrtogonal();
+	obj->cargarNivel("Mapas/Nivel1.txt");
+	obj->crear(4, 4, head);
+	obj->desplegar(head);
+	obj->cargarVec();
 }
 Juego::~Juego()
 {

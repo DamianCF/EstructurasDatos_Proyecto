@@ -1,7 +1,8 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <iostream>
-//#include "Menu.h"
+#include "ListaOrtogonal.h"
+
 
 using namespace sf;
 using namespace std;
@@ -18,11 +19,13 @@ public:
 
 private:
 	RenderWindow* ventana2;
-	//Menu* backmain;
+	
+	Nodo* head;
+	ListaOrtogonal* obj;
+
 	Texture* background;
 	Sprite* sprite1;
 	Event* evento;
-
 	Font* fuente;
 	Text* label1;
 
