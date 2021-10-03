@@ -139,10 +139,14 @@ void Opciones::moverArriba()
 	if (MenuSeleccionado - 1 >= 0)
 	{
 		vectorBotones[MenuSeleccionado].setFillColor(Color::White);
-		
 		MenuSeleccionado--;
-		if (MenuSeleccionado == -1)
+		vectorBotones[MenuSeleccionado].setFillColor(Color(celeste));
+	}
+	else
+	{
+		if (MenuSeleccionado == 0)
 		{
+			vectorBotones[MenuSeleccionado].setFillColor(Color::White);
 			MenuSeleccionado = 2;
 		}
 		vectorBotones[MenuSeleccionado].setFillColor(Color(celeste));

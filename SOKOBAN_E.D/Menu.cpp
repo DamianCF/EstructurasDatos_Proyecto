@@ -132,9 +132,14 @@ void Menu::MoverArriba()
 		vectorBotones[MenuSeleccionado].setFillColor(Color::White);
 
 		MenuSeleccionado--;
-		if (MenuSeleccionado == -1)
+		vectorBotones[MenuSeleccionado].setFillColor(Color::Blue);
+	}
+	else
+	{
+		if (MenuSeleccionado == 0)
 		{
-			MenuSeleccionado = 2;
+			vectorBotones[MenuSeleccionado].setFillColor(Color::White);
+			MenuSeleccionado = 3;
 		}
 		vectorBotones[MenuSeleccionado].setFillColor(Color::Blue);
 	}
