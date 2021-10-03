@@ -7,7 +7,7 @@ Juego::~Juego()
 
 Juego::Juego(int ancho, int alto, string titu)
 {
-	pantallaJuego = new RenderWindow(VideoMode(ancho,alto),titu);
+	pantallaJuego = new RenderWindow(VideoMode(ancho, alto), titu);
 	background = new Texture;
 	sprite1 = new Sprite;
 
@@ -16,29 +16,22 @@ Juego::Juego(int ancho, int alto, string titu)
 	Tmuros->loadFromFile("resource/1.png");
 	IntRect posicion(1408,768 , 128, 128);
 	Smuro = new Sprite;
-	Smuro2 = new Sprite;
 	Smuro->setTextureRect(posicion);
 	Smuro->setTexture(*Tmuros);*/
 	//Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
 	//Smuro->setPosition(580, 200);
-
-	Smuro2->setTextureRect(posicion);
-	Smuro2->setTexture(*Tmuros);
-	Smuro2->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
-	Smuro2->setPosition(620, 200);
-	
 
 	evento = new Event;
 
 	background->loadFromFile("resource/fondoLadrillos.jpg");
 	sprite1->setTexture(*background);
 	sprite1->setScale(((float)pantallaJuego->getSize().x / sprite1->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / sprite1->getTexture()->getSize().y));
-	
+
 
 	fuente = new Font();
 	fuente->loadFromFile("fonts/PressStart2P-Regular.ttf");
 
-	
+
 	label1 = new Text();
 	label1->setFont(*fuente);
 	label1->setFillColor(Color::White);
@@ -51,9 +44,9 @@ Juego::Juego(int ancho, int alto, string titu)
 
 void Juego::gameloop()
 {
-	
+
 	crearGrid();
-	
+
 	while (pantallaJuego->isOpen())
 	{
 		ejecutar();
@@ -63,9 +56,9 @@ void Juego::gameloop()
 
 void Juego::dibujar()
 {
-	
-	
-	
+
+
+
 }
 
 void Juego::ejecutar()
@@ -83,7 +76,7 @@ void Juego::ejecutar()
 			{
 				Menu* backmain;
 				pantallaJuego->close();
-				backmain = new Menu (960, 540, "SOKOBAN");
+				backmain = new Menu(960, 540, "SOKOBAN");
 			}
 		}
 	}
@@ -102,19 +95,19 @@ void Juego::crearGrid()
 	pantallaJuego->display();
 }
 
-void Juego::cargaImagen(char caracter, int x ,int y) {
+void Juego::cargaImagen(char caracter, int x, int y) {
 	Texture* Tmuros = new Texture();
 	Sprite* Smuro = new Sprite;
 
-		Tmuros->loadFromFile("resource/1.png");
-		IntRect posicion(1408, 768, 128, 128);
+	Tmuros->loadFromFile("resource/1.png");
+	IntRect posicion(1408, 768, 128, 128);
 
-		Smuro->setTextureRect(posicion);
-		Smuro->setTexture(*Tmuros);
-		Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
-		Smuro->setPosition(x,y);
-		pantallaJuego->draw(*Smuro);
-	
+	Smuro->setTextureRect(posicion);
+	Smuro->setTexture(*Tmuros);
+	Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
+	Smuro->setPosition(x, y);
+	pantallaJuego->draw(*Smuro);
+
 
 	//# paredes
 	if (caracter == '#') {
@@ -166,13 +159,13 @@ void Juego::cargaMapa(Nodo* head) {
 			aux2 = aux1;
 			while (aux2 != NULL)
 			{
-				cargaImagen(aux2->getDato(),x,y);
+				cargaImagen(aux2->getDato(), x, y);
 				aux2 = aux2->getSig();
-				x = x+62;
+				x = x + 62;
 			}
 			x = 200;
 			aux1 = aux1->getAbajo();
-			y = y+50;
+			y = y + 50;
 		}
 	}
 	else
