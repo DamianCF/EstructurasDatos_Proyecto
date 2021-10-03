@@ -3,7 +3,7 @@ ListaOrtogonal::ListaOrtogonal() {
 	vec = new char[(fil * col)];
 }
 
-void ListaOrtogonal::crear(int n, int m, Nodo*& head)
+void ListaOrtogonal::cargarLista(int n, int m, Nodo*& head)
 {
 	Nodo* p = NULL, * q = NULL, * r = NULL;
 	int i, j, k = 0;
@@ -53,7 +53,6 @@ void ListaOrtogonal::crear(int n, int m, Nodo*& head)
 
 void ListaOrtogonal::desplegar(Nodo* head)
 {
-	//cout<<"El dato es: "<<head->dato<<endl;
 	Nodo* p = NULL, * q = NULL;
 	if (head != NULL)
 	{
@@ -76,29 +75,6 @@ void ListaOrtogonal::desplegar(Nodo* head)
 
 void ListaOrtogonal::cargarNivel(string lvlName)
 {
-	/*int i=0;
-	FILE *ab;
-	char caracter;
-	stringstream ss;
-	ss<<"Nivel"<<lvlName<<".txt";
-	string url=ss.str();
-	int nu=url.length();
-	char direccion[nu+1];
-	strcpy(direccion,url.c_str());
-	ab = fopen(direccion,"r");
-	if (ab == NULL){
-		cout<<"\nError de apertura del archivo. \n\n";
-	}else{
-		cout<<"\nEl contenido del archivo de prueba es \n\n";
-		while (feof(ab) == 0){
-			caracter = fgetc(ab);
-			//cout<<caracter;
-			vec[i]=caracter;
-			i++;
-		}
-	}
-	fclose(ab);*/
-
 	int i = 0, j = 0;
 	char c;
 	ifstream inFile;
@@ -121,7 +97,6 @@ void ListaOrtogonal::cargarNivel(string lvlName)
 				i++;
 			}
 		}
-
 		inFile.close();
 	}
 }
@@ -130,6 +105,5 @@ void ListaOrtogonal::cargarVec()
 {
 	for (int i = 0;i < 16;i++) {
 		cout << vec[i];
-		//cout<<endl;
 	}
 }

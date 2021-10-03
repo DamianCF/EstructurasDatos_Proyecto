@@ -12,15 +12,14 @@ using namespace std;
 
 class ListaOrtogonal
 {
+private:
+	char* vec;
 public:
 	ListaOrtogonal();
-	void crear(int n, int m, Nodo*&);
+	void cargarLista(int n, int m, Nodo*&);
 	void desplegar(Nodo*);
 	void cargarNivel(string lvlName);
 	void cargarVec();
-private:
-	//nodo *head;
-	//char matriz[fil][col];
-	char* vec;
+
 };
 

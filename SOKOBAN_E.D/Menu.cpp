@@ -104,7 +104,7 @@ void Menu::ejecutarEventos()
 				if (x == 0)//ingresa a la pantalla de juego
 				{
 					menuPrincipal->close();
-					game = new Juego(960, 540, "SOKOBAN");
+					game = new Juego(1280, 720, "SOKOBAN");
 				}
 				if (x == 1)// ingresa a la pantalla de opciones
 				{

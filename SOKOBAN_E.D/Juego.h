@@ -9,34 +9,36 @@ using namespace std;
 
 class Juego
 {
-public:
-	Juego(int ancho,int alto, string titu);
-	void gameloop();
-	void dibujar();
-	void ejecutar();
-	void crearGrid();
-	~Juego();
-
-private:
-	RenderWindow* ventana2;
+	private:
+		RenderWindow* pantallaJuego;
 	
-	Nodo* head;
-	ListaOrtogonal* obj;
+		Nodo* head;
+		ListaOrtogonal* obj;
 
-	Texture* background;
-	Sprite* sprite1;
-	Event* evento;
-	Font* fuente;
-	Text* label1;
+		Texture* background;
+		Sprite* sprite1;
+		Event* evento;
+		Font* fuente;
+		Text* label1;
 
-	Texture* Tmuros;
-	Sprite* Smuro;
+		//Texture* Tmuros;
+		//Sprite* Smuro;
 
-	Texture* Tpiso;
-	Sprite* Spiso;
+		Texture* Tpiso;
+		Sprite* Spiso;
 
-	Texture* Tpersonaje;
-	Sprite* Spersonaje;
+		Texture* Tpersonaje;
+		Sprite* Spersonaje;
+
+	public:
+		Juego(int ancho, int alto, string titu);
+		void gameloop();
+		void dibujar();
+		void ejecutar();
+		void crearGrid();
+		void cargaImagen(char caracter, int x, int y);
+		void cargaMapa(Nodo* head);
+		~Juego();
 
 
 };
