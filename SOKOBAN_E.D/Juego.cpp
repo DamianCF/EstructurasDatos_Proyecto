@@ -68,7 +68,7 @@ void Juego::ejecutar()
 		if (evento->type == Event::Closed)
 		{
 			pantallaJuego->close();
-			exit(1);
+			//exit(1);
 		}
 		if (evento->type == Event::KeyReleased)
 		{
@@ -92,61 +92,58 @@ void Juego::crearGrid()
 	obj->cargarNivel("Mapas/Nivel1.txt");
 	obj->cargarLista(9, 9, head);
 	cargaMapa(head);
+	cout << "Base cargada";
 	pantallaJuego->display();
 }
 
-void Juego::cargaImagen(char caracter, int x, int y) {
-	Texture* Tmuros = new Texture();
-	Sprite* Smuro = new Sprite;
-
-	Tmuros->loadFromFile("resource/1.png");
-	IntRect posicion(1408, 768, 128, 128);
-
-	Smuro->setTextureRect(posicion);
-	Smuro->setTexture(*Tmuros);
-	Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
-	Smuro->setPosition(x, y);
-	pantallaJuego->draw(*Smuro);
-
-
-	//# paredes
-	if (caracter == '#') {
-		//Tmuros->loadFromFile("resource/1.png");
-		IntRect posicion(1152, 768, 128, 128);
-
-		Smuro->setTextureRect(posicion);
-		//Smuro->setTexture(*Tmuros);
-		//Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
-		Smuro->setPosition(x, y);
-		pantallaJuego->draw(*Smuro);
-	}
-
+void Juego::actualizaMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro) {
+	
 	//$ cajas
 	if (caracter == '$') {
 		IntRect posicion(128, 256, 128, 128);
 		Smuro->setTextureRect(posicion);
-		Smuro->setPosition(x, y);
-		pantallaJuego->draw(*Smuro);
-	}
-
-	//. metas
-	if (caracter == '.') {
-		IntRect posicion(1408, 896, 128, 128);
-		Smuro->setTextureRect(posicion);
-		Smuro->setPosition(x, y);
-		pantallaJuego->draw(*Smuro);
 	}
 
 	//@ personaje
 	if (caracter == '@') {
 		IntRect posicion(0, 640, 128, 128);
 		Smuro->setTextureRect(posicion);
-		Smuro->setPosition(x, y);
-		pantallaJuego->draw(*Smuro);
 	}
+
+	Smuro->setPosition(x, y);
+	pantallaJuego->draw(*Smuro);
+}
+
+void Juego::cargaBaseMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro) {
+
+	IntRect posicion(1408, 768, 128, 128);
+	Smuro->setTextureRect(posicion);
+	Smuro->setPosition(x, y);
+	pantallaJuego->draw(*Smuro);
+
+	//# paredes
+	if (caracter == '#') {
+		IntRect posicion(1152, 768, 128, 128);
+		Smuro->setTextureRect(posicion);
+	}
+	//. metas
+	if (caracter == '.') {
+		IntRect posicion(1408, 896, 128, 128);
+		Smuro->setTextureRect(posicion);
+	}
+	Smuro->setPosition(x, y);
+	pantallaJuego->draw(*Smuro);
 }
 
 void Juego::cargaMapa(Nodo* head) {
+
+	Tmuros = new Texture();
+	Smuro = new Sprite;
+
+	Tmuros->loadFromFile("resource/1.png");
+	Smuro->setTexture(*Tmuros);
+	Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
+
 	Nodo* aux1 = NULL, * aux2 = NULL;
 
 	int x = 200;
@@ -159,7 +156,8 @@ void Juego::cargaMapa(Nodo* head) {
 			aux2 = aux1;
 			while (aux2 != NULL)
 			{
-				cargaImagen(aux2->getDato(), x, y);
+				cargaBaseMapa(aux2->getDato(), x, y, Tmuros, Smuro);
+				actualizaMapa(aux2->getDato(), x, y, Tmuros, Smuro);
 				aux2 = aux2->getSig();
 				x = x + 62;
 			}
@@ -168,6 +166,4 @@ void Juego::cargaMapa(Nodo* head) {
 			y = y + 50;
 		}
 	}
-	else
-		cout << "Lista vacia...";
 }

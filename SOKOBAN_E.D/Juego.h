@@ -21,8 +21,8 @@ class Juego
 		Font* fuente;
 		Text* label1;
 
-		//Texture* Tmuros;
-		//Sprite* Smuro;
+		Texture* Tmuros;
+		Sprite* Smuro;
 
 		Texture* Tpiso;
 		Sprite* Spiso;
@@ -35,9 +35,11 @@ class Juego
 		void gameloop();
 		void dibujar();
 		void ejecutar();
+
 		void crearGrid();
-		void cargaImagen(char caracter, int x, int y);
+		void actualizaMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro);
 		void cargaMapa(Nodo* head);
+		void cargaBaseMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro);
 		~Juego();
 
 
