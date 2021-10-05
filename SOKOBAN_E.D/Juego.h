@@ -41,8 +41,7 @@ class Juego
 		void cargaMapa(Nodo* head);
 		void cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 
-		void Mover();
-		void moverArriba();
+		void MoverArriba();
 		void moverAbajo();
 		void moverDerecha();
 		void moverIzquierda();
