@@ -1,11 +1,11 @@
 #include "Juego.h"
-#include "Menu.h"
+#include "Niveles.h"
 
 Juego::~Juego()
 {
 }
 
-Juego::Juego(int ancho, int alto, string titu)
+Juego::Juego(int ancho, int alto, string titu, string nivel)
 {
 	pantallaJuego = new RenderWindow(VideoMode(ancho, alto), titu);
 
@@ -38,13 +38,13 @@ Juego::Juego(int ancho, int alto, string titu)
 	label1->setCharacterSize(40);
 	label1->setPosition(300, 100);
 
-	gameloop();
+	gameloop(nivel);
 }
 
-void Juego::gameloop()
+void Juego::gameloop(string nivel)
 {
 
-	crearGrid();
+	crearGrid(nivel);
 
 	while (pantallaJuego->isOpen())
 	{
@@ -73,9 +73,9 @@ void Juego::ejecutar()
 		{
 			if (evento->key.code == Keyboard::Escape)
 			{
-				Menu* backmain;
+				Niveles* atras;
 				pantallaJuego->close();
-				backmain = new Menu(960, 540, "SOKOBAN");
+				atras = new Niveles(960, 540, "SOKOBAN");
 			}
 			if (evento->key.code == Keyboard::W || evento->key.code == Keyboard::Up)
 			{
@@ -97,12 +97,12 @@ void Juego::ejecutar()
 	}
 }
 
-void Juego::crearGrid()
+void Juego::crearGrid(string nivel)
 {
 	pantallaJuego->draw(*fondoPantalla);
 
 	obj = new ListaOrtogonal();
-	obj->cargarNivel("Mapas/Nivel1.txt");
+	obj->cargarNivel(nivel);
 	obj->cargarLista(9, 9, head);
 	cargaMapa(head);
 	cout << "Base cargada";

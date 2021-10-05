@@ -1,9 +1,10 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#include "Juego.h"
 #include "Opciones.h"
 #include "pantallaAcercaDe.h"
+
+#include "Niveles.h"
 
 using namespace sf;
 using namespace std;
@@ -20,13 +21,13 @@ class Menu{
 		Texture* texturaFondo;
 		Sprite* basePantalla;
 		Event* evento; 
-		Juego* game;
+		
 		Opciones* options;
 		pantallaAcercaDe* info;
 		Font *fuente;
 		Text vectorBotones[Max_menu];
 
-	
+		Niveles* niveles;
 	
 
 	public:

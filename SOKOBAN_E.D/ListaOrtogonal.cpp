@@ -78,7 +78,12 @@ void ListaOrtogonal::cargarNivel(string lvlName)
 	FILE* archivo;
     char caracter;
     int i = 0;
-    archivo = fopen("Mapas/Nivel1.txt", "r");
+
+	string direccion = "Mapas/Nivel" + lvlName + ".txt";
+
+
+    archivo = fopen(direccion.c_str(), "r");
+
     if (archivo == NULL) {
         printf("\nError de apertura del archivo. \n\n");
     }

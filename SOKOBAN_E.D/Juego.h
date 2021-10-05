@@ -31,12 +31,12 @@ class Juego
 		Sprite* Spersonaje;
 
 	public:
-		Juego(int ancho, int alto, string titu);
-		void gameloop();
+		Juego(int ancho, int alto, string titu, string nivel);
+		void gameloop(string nivel);
 		void dibujar();
 		void ejecutar();
 
-		void crearGrid();
+		void crearGrid(string nivel);
 		void actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 		void cargaMapa(Nodo* head);
 		void cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
