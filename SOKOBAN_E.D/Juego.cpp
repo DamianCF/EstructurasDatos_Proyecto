@@ -230,7 +230,7 @@ void Juego::MoverArriba()
 	arriba = actual->getArriba();
 
 	//=============ARRIBA CON CAJA====================//
-	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0' && actual->getDato() == 'X') {    //Si personaje tiene arriba caja y hay espacio...
+	if (actual->getDato() == 'X' && arriba->getDato() == '$' && (arriba->getArriba()->getDato() == '0' || arriba->getArriba()->getDato() == '.')) {    //Si personaje tiene arriba caja y hay espacio...
 		arriba->setDato('@');
 		arriba->getArriba()->setDato('$');
 		actual->setDato('.');
