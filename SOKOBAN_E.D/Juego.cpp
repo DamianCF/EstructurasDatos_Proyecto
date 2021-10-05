@@ -81,6 +81,14 @@ void Juego::ejecutar()
 			{
 				Mover();
 			}
+			if (evento->key.code == Keyboard::D)
+			{
+				moverDerecha();
+			}
+			if (evento->key.code == Keyboard::Right)
+			{
+				moverDerecha();
+			}
 		}
 	}
 }
@@ -257,6 +265,84 @@ void Juego::Mover()
 		arriba->setDato('X');
 		actual->setDato('0');
 		cout << "arriba" << endl;
+	}
+
+	obj->desplegar(head);
+	cargaMapa(head);
+	pantallaJuego->display();
+}
+
+void Juego::moverDerecha()
+{
+	Nodo* p = NULL, * q = NULL, * actual = NULL, * derecha = NULL;
+	if (head != NULL)
+	{
+		p = head;
+		while (p != NULL)
+		{
+			q = p;
+			while (q != NULL)
+			{
+				if (q->getDato() == '@')
+				{
+					actual = q;
+					cout << "encontrado" << endl;
+				}
+				if (q->getDato() == 'X')
+				{
+					actual = q;
+					cout << "encontrado" << endl;
+				}
+				q = q->getSig();
+			}
+			p = p->getAbajo();
+		}
+	}
+	else
+		cout << "Lista vacia...";
+
+	derecha = actual->getSig();
+
+	//=============ARRIBA CON CAJA====================//
+	if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0' && actual->getDato() == 'X') {    //Si personaje tiene arriba caja y hay espacio...
+		derecha->setDato('@');
+		derecha->getSig()->setDato('$');
+		actual->setDato('.');
+		cout << "derecha" << endl;
+	}
+	if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+		derecha->setDato('@');
+		derecha->getSig()->setDato('$');
+		actual->setDato('0');
+		cout << "derecha" << endl;
+	}
+	if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+		derecha->setDato('@');
+		derecha->getSig()->setDato('M');
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+	if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+		derecha->setDato('X');
+		derecha->getSig()->setDato('$');
+		actual->setDato('0');
+		cout << "derecha" << endl;
+	}
+	//=============ARRIBA SIN CAJA====================//
+	if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+		derecha->setDato('@');
+		actual->setDato('.');
+		cout << "derecha" << endl;
+	}
+	if (derecha->getDato() == '0') {			//Si arriba de personaje es vacío
+		derecha->setDato(actual->getDato());
+		actual->setDato('0');
+		cout << "derecha" << endl;
+	}
+	if (derecha->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+		derecha->setDato('X');
+		actual->setDato('0');
+		cout << "derecha" << endl;
 	}
 
 	obj->desplegar(head);
