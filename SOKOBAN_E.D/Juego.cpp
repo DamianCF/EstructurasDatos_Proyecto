@@ -87,8 +87,21 @@ void Juego::ejecutar()
 			}
 			if (evento->key.code == Keyboard::S || evento->key.code == Keyboard::Down)
 			{
+<<<<<<< Updated upstream
 				moverAbajo();
+=======
+				moverIzquierda();
 			}
+			if (evento->key.code == Keyboard::A)
+			{
+				moverDerecha();
+>>>>>>> Stashed changes
+			}
+			if (evento->key.code == Keyboard::Left)
+			{
+				moverIzquierda();
+			}
+
 		}
 	}
 }
@@ -349,9 +362,16 @@ void Juego::moverDerecha()
 	cargaMapa(head);
 	pantallaJuego->display();
 }
+<<<<<<< Updated upstream
 void Juego::moverAbajo()
 {
 	Nodo* p = NULL, * q = NULL, * actual = NULL, * Abajo = NULL;
+=======
+
+void Juego::moverIzquierda()
+{
+	Nodo* p = NULL, * q = NULL, * actual = NULL, * izquierda = NULL;
+>>>>>>> Stashed changes
 	if (head != NULL)
 	{
 		p = head;
@@ -378,6 +398,7 @@ void Juego::moverAbajo()
 	else
 		cout << "Lista vacia...";
 
+<<<<<<< Updated upstream
 	Abajo = actual->getAbajo();
 
 	//=============ARRIBA CON CAJA====================//
@@ -420,9 +441,57 @@ void Juego::moverAbajo()
 		Abajo->setDato('X');
 		actual->setDato('0');
 		cout << "Abajo" << endl;
+=======
+	izquierda = actual->getAnt();
+
+	//=============IZQUIERDA CON CAJA====================//
+	if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0' && actual->getDato() == 'X') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
+		izquierda->setDato('@');
+		izquierda->getAnt()->setDato('$');
+		actual->setDato('.');
+		cout << "izquierda" << endl;
+	}
+	if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
+		izquierda->setDato('@');
+		izquierda->getAnt()->setDato('$');
+		actual->setDato('0');
+		cout << "derecha" << endl;
+	}
+	if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '.') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+		izquierda->setDato('@');
+		izquierda->getAnt()->setDato('M');
+		actual->setDato('0');
+		cout << "izquierda" << endl;
+	}
+	if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+		izquierda->setDato('X');
+		izquierda->getAnt()->setDato('$');
+		actual->setDato('0');
+		cout << "derecha" << endl;
+	}
+	//=============IZQUIERDA SIN CAJA====================//
+	if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
+		izquierda->setDato('@');
+		actual->setDato('.');
+		cout << "izquierda" << endl;
+	}
+	if (izquierda->getDato() == '0') {			//Si IZQUIERDA de personaje es vacío
+		izquierda->setDato(actual->getDato());
+		actual->setDato('0');
+		cout << "izquierda" << endl;
+	}
+	if (izquierda->getDato() == '.') {    //Si IZQUIERDA de personaje hay meta setea X para saber que está sobre...
+		izquierda->setDato('X');
+		actual->setDato('0');
+		cout << "derecha" << endl;
+>>>>>>> Stashed changes
 	}
 
 	obj->desplegar(head);
 	cargaMapa(head);
 	pantallaJuego->display();
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
