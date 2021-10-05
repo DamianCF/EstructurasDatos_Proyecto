@@ -110,6 +110,10 @@ void Juego::actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Spri
 		IntRect posicion(0, 640, 128, 128);
 		Smuro->setTextureRect(posicion);
 	}
+	if (caracter == 'X') {
+		IntRect posicion(0, 640, 128, 128);
+		Smuro->setTextureRect(posicion);
+	}
 
 	Smuro->setPosition(x, y);
 	pantallaJuego->draw(*Smuro);
@@ -132,6 +136,10 @@ void Juego::cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Spri
 		IntRect posicion(1408, 896, 128, 128);
 		Smuro->setTextureRect(posicion);
 	}
+	if (caracter == 'M') {
+		IntRect posicion(512, 256, 128, 128);
+		Smuro->setTextureRect(posicion);
+	}
 	Smuro->setPosition(x, y);
 	pantallaJuego->draw(*Smuro);
 }
@@ -140,6 +148,11 @@ void Juego::cargaMapa(Nodo* head) {
 
 	cout << "cargar mapa" << endl;
 	
+	
+	texturaFondo->loadFromFile("resource/fondoLadrillos.jpg");
+	fondoPantalla->setTexture(*texturaFondo);
+	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
+	pantallaJuego->draw(*fondoPantalla);
 
 	Tmuros = new Texture();
 	Smuro = new Sprite;
@@ -175,7 +188,7 @@ void Juego::cargaMapa(Nodo* head) {
 
 void Juego::Mover()
 {
-	Nodo* p = NULL, * q = NULL,*arri = NULL, *arri2 = NULL;
+	Nodo* p = NULL, * q = NULL,*actual = NULL, *arriba = NULL;
 	if (head != NULL)
 	{
 		p = head;
@@ -186,8 +199,13 @@ void Juego::Mover()
 			{
 				if (q->getDato() == '@')
 				{
-					arri = q;
+					actual = q;
 					cout<<"encontrado"<<endl;
+				}
+				if (q->getDato() == 'X')
+				{
+					actual = q;
+					cout << "encontrado" << endl;
 				}
 				q = q->getSig();
 			}
@@ -197,13 +215,51 @@ void Juego::Mover()
 	else
 		cout << "Lista vacia...";
 
-	arri2 = arri->getArriba();
+	arriba = actual->getArriba();
 
-	if (arri2->getDato() == '0') {
-		arri2->setDato(arri->getDato());
-		arri->setDato('0');
+	//=============ARRIBA CON CAJA====================//
+	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0' && actual->getDato() == 'X') {    //Si personaje tiene arriba caja y hay espacio...
+		arriba->setDato('@');
+		arriba->getArriba()->setDato('$');
+		actual->setDato('.');
 		cout << "arriba" << endl;
 	}
+	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+		arriba->setDato('@');
+		arriba->getArriba()->setDato('$');
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+		arriba->setDato('@');
+		arriba->getArriba()->setDato('M');
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+	if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+		arriba->setDato('X');
+		arriba->getArriba()->setDato('$');
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+	//=============ARRIBA SIN CAJA====================//
+	if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+		arriba->setDato('@');
+		actual->setDato('.');
+		cout << "arriba" << endl;
+	}
+	if (arriba->getDato() == '0' ) {			//Si arriba de personaje es vacío
+		arriba->setDato(actual->getDato());
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+	if (arriba->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+		arriba->setDato('X');
+		actual->setDato('0');
+		cout << "arriba" << endl;
+	}
+
+	obj->desplegar(head);
 	cargaMapa(head);
 	pantallaJuego->display();
 }
