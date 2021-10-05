@@ -8,8 +8,8 @@ Juego::~Juego()
 Juego::Juego(int ancho, int alto, string titu)
 {
 	pantallaJuego = new RenderWindow(VideoMode(ancho, alto), titu);
-	background = new Texture;
-	sprite1 = new Sprite;
+	texturaFondo = new Texture;
+	 fondoPantalla = new Sprite;
 
 	/*
 	Tmuros = new Texture;
@@ -23,9 +23,9 @@ Juego::Juego(int ancho, int alto, string titu)
 
 	evento = new Event;
 
-	background->loadFromFile("resource/fondoLadrillos.jpg");
-	sprite1->setTexture(*background);
-	sprite1->setScale(((float)pantallaJuego->getSize().x / sprite1->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / sprite1->getTexture()->getSize().y));
+	texturaFondo->loadFromFile("resource/fondoLadrillos.jpg");
+	fondoPantalla->setTexture(*texturaFondo);
+	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
 
 
 	fuente = new Font();
@@ -68,7 +68,7 @@ void Juego::ejecutar()
 		if (evento->type == Event::Closed)
 		{
 			pantallaJuego->close();
-			//exit(1);
+			exit(1);
 		}
 		if (evento->type == Event::KeyReleased)
 		{
@@ -84,9 +84,7 @@ void Juego::ejecutar()
 
 void Juego::crearGrid()
 {
-	pantallaJuego->clear();
-	pantallaJuego->draw(*sprite1);
-	//pantallaJuego->draw(*label1);
+	pantallaJuego->draw(*fondoPantalla);
 
 	obj = new ListaOrtogonal();
 	obj->cargarNivel("Mapas/Nivel1.txt");
@@ -96,7 +94,7 @@ void Juego::crearGrid()
 	pantallaJuego->display();
 }
 
-void Juego::actualizaMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro) {
+void Juego::actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro) {
 	
 	//$ cajas
 	if (caracter == '$') {
@@ -114,7 +112,7 @@ void Juego::actualizaMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* 
 	pantallaJuego->draw(*Smuro);
 }
 
-void Juego::cargaBaseMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro) {
+void Juego::cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro) {
 
 	IntRect posicion(1408, 768, 128, 128);
 	Smuro->setTextureRect(posicion);
@@ -144,10 +142,10 @@ void Juego::cargaMapa(Nodo* head) {
 	Smuro->setTexture(*Tmuros);
 	Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
 
-	Nodo* aux1 = NULL, * aux2 = NULL;
+	Nodo* aux1 = NULL, * aux2 = NULL, * aux3 = NULL ;
 
-	int x = 200;
-	int y = 50;
+	float x = 200;
+	float y = 50;
 	if (head != NULL)
 	{
 		aux1 = head;
@@ -158,6 +156,7 @@ void Juego::cargaMapa(Nodo* head) {
 			{
 				cargaBaseMapa(aux2->getDato(), x, y, Tmuros, Smuro);
 				actualizaMapa(aux2->getDato(), x, y, Tmuros, Smuro);
+				
 				aux2 = aux2->getSig();
 				x = x + 62;
 			}

@@ -6,9 +6,11 @@
 #include <sstream>
 #include "Nodo.h"
 
+#pragma warning(disable:4996)
+
 using namespace std;
-#define fil 4
-#define col 4
+#define fil 9
+#define col 9
 
 class ListaOrtogonal
 {

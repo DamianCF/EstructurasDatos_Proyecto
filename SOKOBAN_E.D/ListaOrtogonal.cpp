@@ -75,30 +75,31 @@ void ListaOrtogonal::desplegar(Nodo* head)
 
 void ListaOrtogonal::cargarNivel(string lvlName)
 {
-	int i = 0, j = 0;
-	char c;
-	ifstream inFile;
-	inFile.open(lvlName.c_str());
-	inFile >> noskipws;
+	FILE* archivo;
+    char caracter;
+    int i = 0;
+    archivo = fopen("Mapas/Nivel1.txt", "r");
+    if (archivo == NULL) {
+        printf("\nError de apertura del archivo. \n\n");
+    }
+    else {
+        printf("\nEl contenido del archivo de prueba es \n\n");
+        while (feof(archivo) == 0) {
+            caracter = fgetc(archivo);
+            if (caracter != EOF)
+            {
+				if (caracter != '\n') {
+					vec[i] = caracter;
+					i++;
+				}
+				else {
+					cout << endl;
+				}
+            }
+        }
+    }
+    cout << "\n";
 
-	if (!inFile)
-	{
-		cout << "Error al cargar el nivel" << endl;
-		exit(1);
-	}
-	else
-	{
-		while (!inFile.eof())
-		{
-			inFile.get(c);
-			if (c != '\n')
-			{
-				vec[i] = c;
-				i++;
-			}
-		}
-		inFile.close();
-	}
 }
 
 void ListaOrtogonal::cargarVec()

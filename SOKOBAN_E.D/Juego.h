@@ -15,8 +15,8 @@ class Juego
 		Nodo* head;
 		ListaOrtogonal* obj;
 
-		Texture* background;
-		Sprite* sprite1;
+		Texture* texturaFondo;
+		Sprite* fondoPantalla;
 		Event* evento;
 		Font* fuente;
 		Text* label1;
@@ -37,9 +37,15 @@ class Juego
 		void ejecutar();
 
 		void crearGrid();
-		void actualizaMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro);
+		void actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 		void cargaMapa(Nodo* head);
-		void cargaBaseMapa(char caracter, int x, int y, Texture* Tmuros, Sprite* Smuro);
+		void cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
+
+		void moverArriba();
+		void moverAbajo();
+		void moverDerecha();
+		void moverIzquierda();
+
 		~Juego();
 
 
