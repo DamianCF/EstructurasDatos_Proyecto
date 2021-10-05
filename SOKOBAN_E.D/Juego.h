@@ -2,6 +2,8 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include "ListaOrtogonal.h"
+#include <vector>
+#include <conio.h>
 
 
 using namespace sf;
@@ -13,6 +15,7 @@ class Juego
 		RenderWindow* pantallaJuego;
 	
 		Nodo* head;
+		Nodo* head2;
 		ListaOrtogonal* obj;
 
 		Texture* texturaFondo;
@@ -30,6 +33,8 @@ class Juego
 		Texture* Tpersonaje;
 		Sprite* Spersonaje;
 
+		vector<char> repeticion;
+
 	public:
 		Juego(int ancho, int alto, string titu, string nivel);
 		void gameloop(string nivel);
@@ -37,14 +42,21 @@ class Juego
 		void ejecutar();
 
 		void crearGrid(string nivel);
+		void crearGridCopia(string nivel);
 		void actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 		void cargaMapa(Nodo* head);
+		void ejecutarCopia(Nodo* head);
 		void cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 
-		void MoverArriba();
-		void moverAbajo();
-		void moverDerecha();
-		void moverIzquierda();
+		void MoverArriba(int num);
+		void moverAbajo(int num);
+		void moverDerecha(int num);
+		void moverIzquierda(int num);
+
+		void moverRep(int num);
+		void borrarRep();
+		void verRepeticion();
+		vector<char> rep();
 
 		~Juego();
 
