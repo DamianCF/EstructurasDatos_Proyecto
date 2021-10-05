@@ -8,8 +8,12 @@ Juego::~Juego()
 Juego::Juego(int ancho, int alto, string titu)
 {
 	pantallaJuego = new RenderWindow(VideoMode(ancho, alto), titu);
+
 	texturaFondo = new Texture;
-	 fondoPantalla = new Sprite;
+	fondoPantalla = new Sprite;
+	texturaFondo->loadFromFile("resource/fondoLadrillos.jpg");
+	fondoPantalla->setTexture(*texturaFondo);
+	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
 
 	/*
 	Tmuros = new Texture;
@@ -22,11 +26,6 @@ Juego::Juego(int ancho, int alto, string titu)
 	//Smuro->setPosition(580, 200);
 
 	evento = new Event;
-
-	texturaFondo->loadFromFile("resource/fondoLadrillos.jpg");
-	fondoPantalla->setTexture(*texturaFondo);
-	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
-
 
 	fuente = new Font();
 	fuente->loadFromFile("fonts/PressStart2P-Regular.ttf");
@@ -77,6 +76,10 @@ void Juego::ejecutar()
 				Menu* backmain;
 				pantallaJuego->close();
 				backmain = new Menu(960, 540, "SOKOBAN");
+			}
+			if (evento->key.code == Keyboard::W)
+			{
+				Mover();
 			}
 		}
 	}
@@ -135,6 +138,9 @@ void Juego::cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Spri
 
 void Juego::cargaMapa(Nodo* head) {
 
+	cout << "cargar mapa" << endl;
+	
+
 	Tmuros = new Texture();
 	Smuro = new Sprite;
 
@@ -165,4 +171,39 @@ void Juego::cargaMapa(Nodo* head) {
 			y = y + 50;
 		}
 	}
+}
+
+void Juego::Mover()
+{
+	Nodo* p = NULL, * q = NULL,*arri = NULL, *arri2 = NULL;
+	if (head != NULL)
+	{
+		p = head;
+		while (p != NULL)
+		{
+			q = p;
+			while (q != NULL)
+			{
+				if (q->getDato() == '@')
+				{
+					arri = q;
+					cout<<"encontrado"<<endl;
+				}
+				q = q->getSig();
+			}
+			p = p->getAbajo();
+		}
+	}
+	else
+		cout << "Lista vacia...";
+
+	arri2 = arri->getArriba();
+
+	if (arri2->getDato() == '0') {
+		arri2->setDato(arri->getDato());
+		arri->setDato('0');
+		cout << "arriba" << endl;
+	}
+	cargaMapa(head);
+	pantallaJuego->display();
 }
