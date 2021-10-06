@@ -21,6 +21,7 @@ public:
 	void cargarLista(int n, int m, Nodo*&);
 	void desplegar(Nodo*);
 	void cargarNivel(string lvlName);
+	void cargarNivelGuardado();
 	void cargarVec();
 
 };

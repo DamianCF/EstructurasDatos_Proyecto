@@ -44,14 +44,29 @@ Juego::Juego(int ancho, int alto, string titu, string nivel)
 
 void Juego::gameloop(string nivel)
 {
-	borrarRep();
-	crearGrid(nivel);
-	crearGridCopia(nivel);
-	while (pantallaJuego->isOpen())
+	if (nivel == '6')
 	{
-		ejecutar();
-		dibujar();
+		borrarRep();
+		crearGrid(nivel);
+		crearGridCopia(nivel);
+		while (pantallaJuego->isOpen())
+		{
+			ejecutar();
+			dibujar();
+		}
 	}
+	else
+	{
+		borrarRep();
+		crearGrid(nivel);
+		crearGridCopia(nivel);
+		while (pantallaJuego->isOpen())
+		{
+			ejecutar();
+			dibujar();
+		}
+	}
+	
 }
 
 void Juego::dibujar()
@@ -102,6 +117,10 @@ void Juego::ejecutar()
 			{
 				verRepeticion();
 			}
+			if (evento->key.code == Keyboard::G)
+			{
+				Guardar();
+			}
 		}
 	}
 }
@@ -109,12 +128,23 @@ void Juego::ejecutar()
 void Juego::crearGrid(string nivel)
 {
 	pantallaJuego->draw(*fondoPantalla);
+	if (nivel == '6')
+	{
+		obj = new ListaOrtogonal();
+		obj->cargarNivelGuardado();
+		obj->cargarLista(9, 9, head);
+		cargaMapa(head);
+		cout << "Base cargada";
+	}
+	else
+	{
+		obj = new ListaOrtogonal();
+		obj->cargarNivel(nivel);
+		obj->cargarLista(9, 9, head);
+		cargaMapa(head);
+		cout << "Base cargada";
+	}
 
-	obj = new ListaOrtogonal();
-	obj->cargarNivel(nivel);
-	obj->cargarLista(9, 9, head);
-	cargaMapa(head);
-	cout << "Base cargada";
 	pantallaJuego->display();
 }
 
@@ -874,7 +904,44 @@ void Juego::moverRep(int num)
 	}
 }
 
+void Juego::Guardar()
+{
+	ofstream archivo;
+	char l;
+	archivo.open("Guardar/Guardar.txt", ios::out);
 
+	if (archivo.fail()) {
+		cout << "No se pudo abrir el archivo";
+		exit(1);
+	}
+	Nodo* p = NULL, * q = NULL, * actual = NULL, * izquierda = NULL;
+	if (head != NULL)
+	{
+		p = head;
+		while (p != NULL)
+		{
+			q = p;
+			while (q != NULL)
+			{
+				if (q->getDato() != NULL)
+				{
+					actual = q;
+					l = actual->getDato();
+					archivo << l;
+				}
+				q = q->getSig();
+			}
+			archivo << endl;
+			p = p->getAbajo();
+		}
+		archivo.close();
+	}
+	else
+		cout << "Lista vacia...";
+
+
+
+}
 
 void Juego::crearGridCopia(string nivel)
 {
@@ -885,7 +952,7 @@ void Juego::crearGridCopia(string nivel)
 	obj->cargarLista(9, 9, head2);
 	cargaMapa(head2);
 	cout << "Base cargada";
-	pantallaJuego->display();
+	//pantallaJuego->display();
 }
 
 void Juego::verRepeticion()

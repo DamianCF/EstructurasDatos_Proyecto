@@ -78,11 +78,19 @@ void ListaOrtogonal::cargarNivel(string lvlName)
 	FILE* archivo;
     char caracter;
     int i = 0;
-
-	string direccion = "Mapas/Nivel" + lvlName + ".txt";
-
-
-    archivo = fopen(direccion.c_str(), "r");
+	string direccion;
+	if (lvlName == '6')
+	{
+		string direccion = "Guardar/Guardar.txt";
+		archivo = fopen(direccion.c_str(), "r");
+	}
+	else
+	{
+		string direccion = "Mapas/Nivel" + lvlName + ".txt";
+		archivo = fopen(direccion.c_str(), "r");
+	}
+	
+    //archivo = fopen(direccion.c_str(), "r");
 
     if (archivo == NULL) {
         printf("\nError de apertura del archivo. \n\n");
@@ -112,4 +120,38 @@ void ListaOrtogonal::cargarVec()
 	for (int i = 0;i < 16;i++) {
 		cout << vec[i];
 	}
+}
+
+void ListaOrtogonal::cargarNivelGuardado()
+{
+	FILE* archivo;
+	char caracter;
+	int i = 0;
+
+	string direccion = "Guardar/Guardar.txt";
+
+
+	archivo = fopen(direccion.c_str(), "r");
+
+	if (archivo == NULL) {
+		printf("\nError de apertura del archivo. \n\n");
+	}
+	else {
+		printf("\nEl contenido del archivo de prueba es \n\n");
+		while (feof(archivo) == 0) {
+			caracter = fgetc(archivo);
+			if (caracter != EOF)
+			{
+				if (caracter != '\n') {
+					vec[i] = caracter;
+					i++;
+				}
+				else {
+					cout << endl;
+				}
+			}
+		}
+	}
+	cout << "\n";
+
 }

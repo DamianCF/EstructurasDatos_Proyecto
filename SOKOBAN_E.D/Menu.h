@@ -9,7 +9,7 @@
 using namespace sf;
 using namespace std;
 
-#define Max_menu 4
+#define Max_menu 5
 
 class Menu{
 	private:
@@ -28,7 +28,7 @@ class Menu{
 		Text vectorBotones[Max_menu];
 
 		Niveles* niveles;
-	
+		Juego* game;
 
 	public:
 		Menu(int ancho, int alto, string titulo);

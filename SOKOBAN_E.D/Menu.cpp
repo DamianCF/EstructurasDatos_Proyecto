@@ -1,5 +1,5 @@
 #include "Menu.h"
-
+#include "Juego.h"
 
 Menu::~Menu()
 {
@@ -44,12 +44,18 @@ Menu::Menu(int ancho, int alto, string titulo)
 	vectorBotones[2].setPosition(300, 200);
 	vectorBotones[2].setCharacterSize(40);
 
-	//Boton de salir
+	//Boton de cargar partida
 	vectorBotones[3].setFont(*fuente);
-	vectorBotones[3].setString("Salir");
+	vectorBotones[3].setString("Cargar Juego");
 	vectorBotones[3].setFillColor(Color::White);
 	vectorBotones[3].setPosition(300, 250);
 	vectorBotones[3].setCharacterSize(40);
+	//Boton de salir
+	vectorBotones[4].setFont(*fuente);
+	vectorBotones[4].setString("Salir");
+	vectorBotones[4].setFillColor(Color::White);
+	vectorBotones[4].setPosition(300, 300);
+	vectorBotones[4].setCharacterSize(40);
 
 	evento = new Event;
 	gameloop();
@@ -118,7 +124,13 @@ void Menu::ejecutarEventos()
 				}
 				if (x == 3)
 				{
-					
+					menuPrincipal->close();
+					game = new Juego(1280, 720, "SOKOBAN", "6");
+				}
+				if (x == 4)
+				{
+					menuPrincipal->close();
+					exit(1);
 				}
 			}
 		}

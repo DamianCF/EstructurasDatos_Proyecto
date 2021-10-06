@@ -34,6 +34,8 @@ class Juego
 		Texture* Tpersonaje;
 		Sprite* Spersonaje;
 
+		int partidaG;
+
 		vector<char> repeticion;
 
 	public:
@@ -52,6 +54,8 @@ class Juego
 		void moverAbajo(int num);
 		void moverDerecha(int num);
 		void moverIzquierda(int num);
+
+		void Guardar();
 
 		void moverRep(int num);
 		void borrarRep();
