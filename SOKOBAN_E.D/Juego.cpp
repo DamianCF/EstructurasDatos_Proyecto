@@ -26,7 +26,7 @@ Juego::Juego(int ancho, int alto, string titu, string nivel)
 	label1 = new Text();
 	label1->setFont(*fuente);
 	label1->setFillColor(Color::White);
-	label1->setString("JUDANDO...");
+	label1->setString("JUGANDO...");
 	label1->setCharacterSize(40);
 	label1->setPosition(300, 100);
 
@@ -60,15 +60,8 @@ void Juego::gameloop(string nivel)
 
 void Juego::ejecutar()
 {
-	while (pantallaJuego->pollEvent(*evento))
+	while (pantallaJuego->pollEvent(*evento) && pila.size()!=2)
 	{
-		if (pila.size() == 2) {
-			pantallaJuego->close();
-			int nu = atoi(Nivel.c_str());
-			nu = nu + 1;
-			Nivel = to_string(nu);
-			Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
-		}
 		if (evento->type == Event::Closed)
 		{
 			pantallaJuego->close();
@@ -123,43 +116,45 @@ void Juego::ejecutar()
 			}
 		}
 	}
+	if (pila.size() == 2) {
+		while (pantallaJuego->pollEvent(*evento) && pila.size()==2)
+		{
+			if (evento->type == Event::Closed)
+			{
+				pantallaJuego->close();
+				exit(1);
+			}
+			if (evento->type == Event::KeyReleased)
+			{
+				if (evento->key.code == Keyboard::Escape)
+				{
+					Niveles* atras;
+					pantallaJuego->close();
+					atras = new Niveles(960, 540, "SOKOBAN");
+				}
+				if (evento->key.code == Keyboard::R)
+				{
+					verRepeticion();
+				}
+				if (evento->key.code == Keyboard::G)
+				{
+					Guardar();
+				}
+				if (evento->key.code == Keyboard::BackSpace) {
+					pantallaJuego->close();
+					Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+				}
+				if (evento->key.code == Keyboard::Space) {
+					pantallaJuego->close();
+					int nu = atoi(Nivel.c_str());
+					nu = nu + 1;
+					Nivel = to_string(nu);
+					Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+				}
+			}
+		}
+	}
 
-	/*while (pantallaJuego->pollEvent(*evento))
-	{
-		if (evento->type == Event::Closed)
-		{
-			pantallaJuego->close();
-			exit(1);
-		}
-		if (evento->type == Event::KeyReleased)
-		{
-			if (evento->key.code == Keyboard::Escape)
-			{
-				Niveles* atras;
-				pantallaJuego->close();
-				atras = new Niveles(960, 540, "SOKOBAN");
-			}
-			if (evento->key.code == Keyboard::R)
-			{
-				verRepeticion();
-			}
-			if (evento->key.code == Keyboard::G)
-			{
-				Guardar();
-			}
-			if (evento->key.code == Keyboard::BackSpace) {
-				pantallaJuego->close();
-				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
-			}
-			if (evento->key.code == Keyboard::Space) {
-				pantallaJuego->close();
-				int nu = atoi(Nivel.c_str());
-				nu = nu + 1;
-				Nivel = to_string(nu);
-				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
-			}
-		}
-	}*/
 }
 
 void Juego::crearGrid(string nivel)
