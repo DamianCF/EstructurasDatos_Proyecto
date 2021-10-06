@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include <iostream>
 #include "Opciones.h"
 #include "pantallaAcercaDe.h"
@@ -30,6 +31,8 @@ class Menu{
 		Niveles* niveles;
 		Juego* game;
 
+		SoundBuffer buffer;
+		Sound click;
 	public:
 		Menu(int ancho, int alto, string titulo);
 		~Menu();
