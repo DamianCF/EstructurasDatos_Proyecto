@@ -8,6 +8,7 @@ Juego::~Juego()
 
 Juego::Juego(int ancho, int alto, string titu, string nivel)
 {
+	Nivel = nivel;
 	pantallaJuego = new RenderWindow(VideoMode(ancho, alto), titu);
 
 	texturaFondo = new Texture;
@@ -101,6 +102,17 @@ void Juego::ejecutar()
 			if (evento->key.code == Keyboard::G)
 			{
 				Guardar();
+			}
+			if (evento->key.code == Keyboard::BackSpace) {
+				pantallaJuego->close();
+				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+			}
+			if(evento->key.code == Keyboard::Space) {
+				pantallaJuego->close();
+				int nu = atoi(Nivel.c_str());
+				nu = nu + 1;
+				Nivel = to_string(nu);
+				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
 			}
 		}
 	}
@@ -441,6 +453,8 @@ void Juego::moverIzquierda(int num)
 	cargaMapa(head);
 	pantallaJuego->display();
 }
+
+
 
 void Juego::moverAbajo(int num)
 {

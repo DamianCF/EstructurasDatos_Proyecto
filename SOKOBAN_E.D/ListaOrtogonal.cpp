@@ -49,7 +49,6 @@ void ListaOrtogonal::cargarLista(int n, int m, Nodo*& head)
 	}
 }
 
-
 void ListaOrtogonal::desplegar(Nodo* head)
 {
 	Nodo* p = NULL, * q = NULL;

@@ -4,6 +4,8 @@
 #include "ListaOrtogonal.h"
 #include <vector>
 #include <time.h>
+#include <cstdlib>
+#include <string>
 
 
 
@@ -33,6 +35,8 @@ class Juego
 
 		Texture* Tpersonaje;
 		Sprite* Spersonaje;
+
+		string Nivel;
 
 		int partidaG;
 
