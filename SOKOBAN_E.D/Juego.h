@@ -1,6 +1,11 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <string.h>
+#include <cstdio>
+#include <sstream>
 #include "ListaOrtogonal.h"
 #include <vector>
 #include <time.h>
