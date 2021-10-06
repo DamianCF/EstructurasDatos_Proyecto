@@ -11,6 +11,7 @@
 #include <time.h>
 #include <cstdlib>
 #include <string>
+#include <stack>
 
 
 
@@ -46,6 +47,7 @@ class Juego
 		int partidaG;
 
 		vector<char> repeticion;
+		stack<char>pila;
 
 	public:
 		Juego(int ancho, int alto, string titu, string nivel);
@@ -69,6 +71,8 @@ class Juego
 		void borrarRep();
 		void verRepeticion();
 		vector<char> rep();
+
+		void verPila();
 
 		~Juego();
 

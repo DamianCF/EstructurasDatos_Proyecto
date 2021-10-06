@@ -62,12 +62,19 @@ void Juego::ejecutar()
 {
 	while (pantallaJuego->pollEvent(*evento))
 	{
+		if (pila.size() == 2) {
+			pantallaJuego->close();
+			int nu = atoi(Nivel.c_str());
+			nu = nu + 1;
+			Nivel = to_string(nu);
+			Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+		}
 		if (evento->type == Event::Closed)
 		{
 			pantallaJuego->close();
 			exit(1);
 		}
-		if (evento->type == Event::KeyReleased)
+		if(evento->type == Event::KeyReleased)
 		{
 			if (evento->key.code == Keyboard::Escape)
 			{
@@ -116,6 +123,43 @@ void Juego::ejecutar()
 			}
 		}
 	}
+
+	/*while (pantallaJuego->pollEvent(*evento))
+	{
+		if (evento->type == Event::Closed)
+		{
+			pantallaJuego->close();
+			exit(1);
+		}
+		if (evento->type == Event::KeyReleased)
+		{
+			if (evento->key.code == Keyboard::Escape)
+			{
+				Niveles* atras;
+				pantallaJuego->close();
+				atras = new Niveles(960, 540, "SOKOBAN");
+			}
+			if (evento->key.code == Keyboard::R)
+			{
+				verRepeticion();
+			}
+			if (evento->key.code == Keyboard::G)
+			{
+				Guardar();
+			}
+			if (evento->key.code == Keyboard::BackSpace) {
+				pantallaJuego->close();
+				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+			}
+			if (evento->key.code == Keyboard::Space) {
+				pantallaJuego->close();
+				int nu = atoi(Nivel.c_str());
+				nu = nu + 1;
+				Nivel = to_string(nu);
+				Juego* game = new Juego(1280, 720, "SOKOBAN", Nivel);
+			}
+		}
+	}*/
 }
 
 void Juego::crearGrid(string nivel)
@@ -273,12 +317,14 @@ void Juego::MoverArriba(int num)
 		arriba->getArriba()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.push('M');
 	}
-	else if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+	else if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja en meta y siguiente es vacío...
 		arriba->setDato('X');
 		arriba->getArriba()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.pop();
 	}
 	//=============ARRIBA SIN CAJA====================//
 	else if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
@@ -349,12 +395,14 @@ void Juego::moverDerecha(int num)
 		derecha->getSig()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.push('M');
 	}
 	else if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
 		derecha->setDato('X');
 		derecha->getSig()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.pop();
 	}
 	//=============ARRIBA SIN CAJA====================//
 	else if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
@@ -426,12 +474,14 @@ void Juego::moverIzquierda(int num)
 		izquierda->getAnt()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.push('M');
 	}
 	else if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
 		izquierda->setDato('X');
 		izquierda->getAnt()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.pop();
 	}
 	//=============IZQUIERDA SIN CAJA====================//
 	else if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
@@ -504,12 +554,14 @@ void Juego::moverAbajo(int num)
 		Abajo->getAbajo()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.push('M');
 	}
 	else if (Abajo->getDato() == 'M' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y siguiente es meta...
 		Abajo->setDato('X');
 		Abajo->getAbajo()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
+		pila.pop();
 	}
 	//=============ARRIBA SIN CAJA====================//
 	else if (actual->getDato() == 'X' && Abajo->getDato() != '#') {//Si Abajo está en meta pero arriba hay muro no suba...
@@ -877,4 +929,9 @@ void Juego::borrarRep() {
 vector<char> Juego::rep()
 {
 	return repeticion;
+}
+
+void Juego::verPila() {
+	cout << pila.size();
+	
 }
