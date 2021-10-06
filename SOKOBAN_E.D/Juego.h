@@ -3,7 +3,8 @@
 #include <iostream>
 #include "ListaOrtogonal.h"
 #include <vector>
-#include <conio.h>
+#include <time.h>
+
 
 
 using namespace sf;
@@ -45,7 +46,6 @@ class Juego
 		void crearGridCopia(string nivel);
 		void actualizaMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 		void cargaMapa(Nodo* head);
-		void ejecutarCopia(Nodo* head);
 		void cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Sprite* Smuro);
 
 		void MoverArriba(int num);

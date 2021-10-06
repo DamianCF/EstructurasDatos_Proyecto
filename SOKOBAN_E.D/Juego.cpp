@@ -1,6 +1,7 @@
 #include "Juego.h"
 #include "Niveles.h"
 
+
 Juego::~Juego()
 {
 }
@@ -43,7 +44,7 @@ Juego::Juego(int ancho, int alto, string titu, string nivel)
 
 void Juego::gameloop(string nivel)
 {
-
+	borrarRep();
 	crearGrid(nivel);
 	crearGridCopia(nivel);
 	while (pantallaJuego->isOpen())
@@ -889,8 +890,12 @@ void Juego::crearGridCopia(string nivel)
 
 void Juego::verRepeticion()
 {
+	pantallaJuego->clear();
+	Time delay = milliseconds(500);
 	cargaMapa(head2);
+	pantallaJuego->display();
 	for (int i : rep()) {
+		sleep(delay);
 		cout << i << "rep" << endl;
 		moverRep(i);
 	}
