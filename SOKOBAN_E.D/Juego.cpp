@@ -16,16 +16,6 @@ Juego::Juego(int ancho, int alto, string titu, string nivel)
 	fondoPantalla->setTexture(*texturaFondo);
 	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
 
-	/*
-	Tmuros = new Texture;
-	Tmuros->loadFromFile("resource/1.png");
-	IntRect posicion(1408,768 , 128, 128);
-	Smuro = new Sprite;
-	Smuro->setTextureRect(posicion);
-	Smuro->setTexture(*Tmuros);*/
-	//Smuro->setScale(800.f / Smuro->getTexture()->getSize().x, 400.f / Smuro->getTexture()->getSize().y);
-	//Smuro->setPosition(580, 200);
-
 	evento = new Event;
 
 	fuente = new Font();
@@ -52,7 +42,6 @@ void Juego::gameloop(string nivel)
 		while (pantallaJuego->isOpen())
 		{
 			ejecutar();
-			dibujar();
 		}
 	}
 	else
@@ -63,18 +52,10 @@ void Juego::gameloop(string nivel)
 		while (pantallaJuego->isOpen())
 		{
 			ejecutar();
-			dibujar();
 		}
 	}
-	
 }
 
-void Juego::dibujar()
-{
-
-
-
-}
 
 void Juego::ejecutar()
 {
@@ -134,7 +115,6 @@ void Juego::crearGrid(string nivel)
 		obj->cargarNivelGuardado();
 		obj->cargarLista(9, 9, head);
 		cargaMapa(head);
-		cout << "Base cargada";
 	}
 	else
 	{
@@ -142,7 +122,6 @@ void Juego::crearGrid(string nivel)
 		obj->cargarNivel(nivel);
 		obj->cargarLista(9, 9, head);
 		cargaMapa(head);
-		cout << "Base cargada";
 	}
 
 	pantallaJuego->display();
@@ -197,8 +176,6 @@ void Juego::cargaBaseMapa(char caracter, float x, float y, Texture* Tmuros, Spri
 
 void Juego::cargaMapa(Nodo* head) {
 
-	cout << "cargar mapa" << endl;
-	
 	texturaFondo->loadFromFile("resource/fondoLadrillos.jpg");
 	fondoPantalla->setTexture(*texturaFondo);
 	fondoPantalla->setScale(((float)pantallaJuego->getSize().x / fondoPantalla->getTexture()->getSize().x), ((float)pantallaJuego->getSize().y / fondoPantalla->getTexture()->getSize().y));
@@ -238,7 +215,6 @@ void Juego::cargaMapa(Nodo* head) {
 
 void Juego::MoverArriba(int num)
 {
-	cout << num << endl;
 
 	Nodo* p = NULL, * q = NULL,*actual = NULL, *arriba = NULL;
 	if (head != NULL)
@@ -252,12 +228,10 @@ void Juego::MoverArriba(int num)
 				if (q->getDato() == '@')
 				{
 					actual = q;
-					cout<<"encontrado"<<endl;
 				}
 				if (q->getDato() == 'X')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				q = q->getSig();
 			}
@@ -275,57 +249,48 @@ void Juego::MoverArriba(int num)
 		arriba->getArriba()->setDato('$');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+	else if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
 		arriba->setDato('@');
 		arriba->getArriba()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+	else if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
 		arriba->setDato('@');
 		arriba->getArriba()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+	else if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
 		arriba->setDato('X');
 		arriba->getArriba()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
 	//=============ARRIBA SIN CAJA====================//
-	if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+	else if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
 		arriba->setDato('@');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (arriba->getDato() == '0' ) {			//Si arriba de personaje es vacío
+	else if (arriba->getDato() == '0') {			//Si arriba de personaje es vacío
 		arriba->setDato(actual->getDato());
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (arriba->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+	else if (arriba->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
 		arriba->setDato('X');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
 
-	obj->desplegar(head);
 	cargaMapa(head);
 	pantallaJuego->display();
 }
 
 void Juego::moverDerecha(int num)
 {
-	cout << num << endl;
 
 	Nodo* p = NULL, * q = NULL, * actual = NULL, * derecha = NULL;
 	if (head != NULL)
@@ -339,12 +304,10 @@ void Juego::moverDerecha(int num)
 				if (q->getDato() == '@')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				if (q->getDato() == 'X')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				q = q->getSig();
 			}
@@ -362,57 +325,49 @@ void Juego::moverDerecha(int num)
 		derecha->getSig()->setDato('$');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
-	if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+	else if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
 		derecha->setDato('@');
 		derecha->getSig()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
-	if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+	else if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
 		derecha->setDato('@');
 		derecha->getSig()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "arriba" << endl;
 	}
-	if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+	else if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
 		derecha->setDato('X');
 		derecha->getSig()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
 	//=============ARRIBA SIN CAJA====================//
-	if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+	else if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
 		derecha->setDato('@');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
-	if (derecha->getDato() == '0') {			//Si arriba de personaje es vacío
+	else if (derecha->getDato() == '0') {			//Si arriba de personaje es vacío
 		derecha->setDato(actual->getDato());
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
-	if (derecha->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+	else if (derecha->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
 		derecha->setDato('X');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
 
-	obj->desplegar(head);
+
 	cargaMapa(head);
 	pantallaJuego->display();
 }
 
 void Juego::moverIzquierda(int num)
 {
-	cout << num << endl;
 
 	Nodo* p = NULL, * q = NULL, * actual = NULL, * izquierda = NULL;
 	if (head != NULL)
@@ -426,12 +381,10 @@ void Juego::moverIzquierda(int num)
 				if (q->getDato() == '@')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				if (q->getDato() == 'X')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				q = q->getSig();
 			}
@@ -449,58 +402,48 @@ void Juego::moverIzquierda(int num)
 		izquierda->getAnt()->setDato('$');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "izquierda" << endl;
 	}
-	if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
+	else if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
 		izquierda->setDato('@');
 		izquierda->getAnt()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
-	if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '.') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+	else if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '.') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
 		izquierda->setDato('@');
 		izquierda->getAnt()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "izquierda" << endl;
 	}
-	if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+	else if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
 		izquierda->setDato('X');
 		izquierda->getAnt()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
 	//=============IZQUIERDA SIN CAJA====================//
-	if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
+	else if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
 		izquierda->setDato('@');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "izquierda" << endl;
 	}
-	if (izquierda->getDato() == '0') {			//Si IZQUIERDA de personaje es vacío
+	else if (izquierda->getDato() == '0') {			//Si IZQUIERDA de personaje es vacío
 		izquierda->setDato(actual->getDato());
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "izquierda" << endl;
 	}
-	if (izquierda->getDato() == '.') {    //Si IZQUIERDA de personaje hay meta setea X para saber que está sobre...
+	else if (izquierda->getDato() == '.') {    //Si IZQUIERDA de personaje hay meta setea X para saber que está sobre...
 		izquierda->setDato('X');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "derecha" << endl;
 	}
 
-	obj->desplegar(head);
 	cargaMapa(head);
 	pantallaJuego->display();
 }
 
 void Juego::moverAbajo(int num)
 {
-
-	cout << num << endl;
 
 	Nodo* p = NULL, * q = NULL, * actual = NULL, * Abajo = NULL;
 	if (head != NULL)
@@ -514,12 +457,10 @@ void Juego::moverAbajo(int num)
 				if (q->getDato() == '@')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				if (q->getDato() == 'X')
 				{
 					actual = q;
-					cout << "encontrado" << endl;
 				}
 				q = q->getSig();
 			}
@@ -537,50 +478,42 @@ void Juego::moverAbajo(int num)
 		Abajo->getAbajo()->setDato('$');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
-	if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y hay espacio...
+	else if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y hay espacio...
 		Abajo->setDato('@');
 		Abajo->getAbajo()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
-	if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '.') {    //Si personaje tiene Abajo caja y siguiente es meta...
+	else if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '.') {    //Si personaje tiene Abajo caja y siguiente es meta...
 		Abajo->setDato('@');
 		Abajo->getAbajo()->setDato('M');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
-	if (Abajo->getDato() == 'M' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y siguiente es meta...
+	else if (Abajo->getDato() == 'M' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y siguiente es meta...
 		Abajo->setDato('X');
 		Abajo->getAbajo()->setDato('$');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
 	//=============ARRIBA SIN CAJA====================//
-	if (actual->getDato() == 'X' && Abajo->getDato() != '#') {//Si Abajo está en meta pero arriba hay muro no suba...
+	else if (actual->getDato() == 'X' && Abajo->getDato() != '#') {//Si Abajo está en meta pero arriba hay muro no suba...
 		Abajo->setDato('@');
 		actual->setDato('.');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
-	if (Abajo->getDato() == '0') {            //Si Abajo de personaje es vacío
+	else if (Abajo->getDato() == '0') {            //Si Abajo de personaje es vacío
 		Abajo->setDato(actual->getDato());
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
-	if (Abajo->getDato() == '.') {    //Si Abajo de personaje hay meta setea X para saber que está sobre...
+	else if (Abajo->getDato() == '.') {    //Si Abajo de personaje hay meta setea X para saber que está sobre...
 		Abajo->setDato('X');
 		actual->setDato('0');
 		repeticion.push_back(num);
-		cout << "Abajo" << endl;
 	}
 
-	obj->desplegar(head);
 	cargaMapa(head);
 	pantallaJuego->display();
 }
@@ -601,12 +534,10 @@ void Juego::moverRep(int num)
 					if (q->getDato() == '@')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					if (q->getDato() == 'X')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					q = q->getSig();
 				}
@@ -623,49 +554,41 @@ void Juego::moverRep(int num)
 			arriba->setDato('@');
 			arriba->getArriba()->setDato('$');
 			actual->setDato('.');
-			cout << "arriba" << endl;
 		}
-		if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+		else if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
 			arriba->setDato('@');
 			arriba->getArriba()->setDato('$');
 			actual->setDato('0');
-			cout << "arriba" << endl;
 		}
-		if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+		else if (arriba->getDato() == '$' && arriba->getArriba()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
 			arriba->setDato('@');
 			arriba->getArriba()->setDato('M');
 			actual->setDato('0');
-			cout << "arriba" << endl;
 		}
-		if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+		else if (arriba->getDato() == 'M' && arriba->getArriba()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
 			arriba->setDato('X');
 			arriba->getArriba()->setDato('$');
 			actual->setDato('0');
-			cout << "arriba" << endl;
 		}
 		//=============ARRIBA SIN CAJA====================//
-		if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+		else if (actual->getDato() == 'X' && arriba->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
 			arriba->setDato('@');
 			actual->setDato('.');
-			cout << "arriba" << endl;
 		}
-		if (arriba->getDato() == '0') {			//Si arriba de personaje es vacío
+		else if (arriba->getDato() == '0') {			//Si arriba de personaje es vacío
 			arriba->setDato(actual->getDato());
 			actual->setDato('0');
-			cout << "arriba" << endl;
 		}
-		if (arriba->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+		else if (arriba->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
 			arriba->setDato('X');
 			actual->setDato('0');
-			cout << "arriba" << endl;
 		}
-		obj->desplegar(head2);
+
 		cargaMapa(head2);
 		pantallaJuego->display();
 	}
 	else if(num == 3 || num == 72)
 	{
-		cout << num << endl;
 
 		Nodo* p = NULL, * q = NULL, * actual = NULL, * derecha = NULL;
 		if (head2 != NULL)
@@ -679,12 +602,10 @@ void Juego::moverRep(int num)
 					if (q->getDato() == '@')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					if (q->getDato() == 'X')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					q = q->getSig();
 				}
@@ -701,51 +622,42 @@ void Juego::moverRep(int num)
 			derecha->setDato('@');
 			derecha->getSig()->setDato('$');
 			actual->setDato('.');
-			cout << "derecha" << endl;
 		}
-		if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
+		else if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y hay espacio...
 			derecha->setDato('@');
 			derecha->getSig()->setDato('$');
 			actual->setDato('0');
-			cout << "derecha" << endl;
 		}
-		if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
+		else if (derecha->getDato() == '$' && derecha->getSig()->getDato() == '.') {    //Si personaje tiene arriba caja y siguiente es meta...
 			derecha->setDato('@');
 			derecha->getSig()->setDato('M');
 			actual->setDato('0');
-			cout << "derecha" << endl;
 		}
-		if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
+		else if (derecha->getDato() == 'M' && derecha->getSig()->getDato() == '0') {    //Si personaje tiene arriba caja y siguiente es meta...
 			derecha->setDato('X');
 			derecha->getSig()->setDato('$');
 			actual->setDato('0');
-			cout << "derecha" << endl;
 		}
 		//=============ARRIBA SIN CAJA====================//
-		if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
+		else if (actual->getDato() == 'X' && derecha->getDato() != '#') {//Si personaje está en meta pero arriba hay muro no suba...
 			derecha->setDato('@');
 			actual->setDato('.');
-			cout << "derecha" << endl;
 		}
-		if (derecha->getDato() == '0') {			//Si arriba de personaje es vacío
+		else if (derecha->getDato() == '0') {			//Si arriba de personaje es vacío
 			derecha->setDato(actual->getDato());
 			actual->setDato('0');
-			cout << "derecha" << endl;
 		}
-		if (derecha->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
+		else if (derecha->getDato() == '.') {    //Si arriba de personaje hay meta setea X para saber que está sobre...
 			derecha->setDato('X');
 			actual->setDato('0');
-			cout << "derecha" << endl;
 		}
 
-		obj->desplegar(head2);
 		cargaMapa(head2);
 		pantallaJuego->display();
 	}
 	else if(num == 0 || num == 71)
 	{
 		
-		cout << num << endl;
 
 		Nodo* p = NULL, * q = NULL, * actual = NULL, * izquierda = NULL;
 		if (head2 != NULL)
@@ -759,12 +671,10 @@ void Juego::moverRep(int num)
 					if (q->getDato() == '@')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					if (q->getDato() == 'X')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					q = q->getSig();
 				}
@@ -781,51 +691,42 @@ void Juego::moverRep(int num)
 			izquierda->setDato('@');
 			izquierda->getAnt()->setDato('$');
 			actual->setDato('.');
-			cout << "izquierda" << endl;
 		}
-		if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
+		else if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y hay espacio...
 			izquierda->setDato('@');
 			izquierda->getAnt()->setDato('$');
 			actual->setDato('0');
-			cout << "izquierda" << endl;
 		}
-		if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '.') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+		else if (izquierda->getDato() == '$' && izquierda->getAnt()->getDato() == '.') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
 			izquierda->setDato('@');
 			izquierda->getAnt()->setDato('M');
 			actual->setDato('0');
-			cout << "izquierda" << endl;
 		}
-		if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
+		else if (izquierda->getDato() == 'M' && izquierda->getAnt()->getDato() == '0') {    //Si personaje tiene IZQUIERDA caja y siguiente es meta...
 			izquierda->setDato('X');
 			izquierda->getAnt()->setDato('$');
 			actual->setDato('0');
-			cout << "izquierda" << endl;
 		}
 		//=============IZQUIERDA SIN CAJA====================//
-		if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
+		else if (actual->getDato() == 'X' && izquierda->getDato() != '#') {//Si personaje está en meta pero IZQUIERDA hay muro no avence...
 			izquierda->setDato('@');
 			actual->setDato('.');
-			cout << "izquierda" << endl;
 		}
-		if (izquierda->getDato() == '0') {			//Si IZQUIERDA de personaje es vacío
+		else if (izquierda->getDato() == '0') {			//Si IZQUIERDA de personaje es vacío
 			izquierda->setDato(actual->getDato());
 			actual->setDato('0');
-			cout << "izquierda" << endl;
 		}
-		if (izquierda->getDato() == '.') {    //Si IZQUIERDA de personaje hay meta setea X para saber que está sobre...
+		else if (izquierda->getDato() == '.') {    //Si IZQUIERDA de personaje hay meta setea X para saber que está sobre...
 			izquierda->setDato('X');
 			actual->setDato('0');
-			cout << "izquierda" << endl;
 		}
 
-		obj->desplegar(head2);
 		cargaMapa(head2);
 		pantallaJuego->display();
 
 	}
 	else if(num == 18 || num == 74)
 	{
-		cout << num << endl;
 
 		Nodo* p = NULL, * q = NULL, * actual = NULL, * Abajo = NULL;
 		if (head2 != NULL)
@@ -839,12 +740,10 @@ void Juego::moverRep(int num)
 					if (q->getDato() == '@')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					if (q->getDato() == 'X')
 					{
 						actual = q;
-						cout << "encontrado" << endl;
 					}
 					q = q->getSig();
 				}
@@ -861,44 +760,36 @@ void Juego::moverRep(int num)
 			Abajo->setDato('@');
 			Abajo->getAbajo()->setDato('$');
 			actual->setDato('.');
-			cout << "Abajo" << endl;
 		}
-		if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y hay espacio...
+		else if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y hay espacio...
 			Abajo->setDato('@');
 			Abajo->getAbajo()->setDato('$');
 			actual->setDato('0');
-			cout << "Abajo" << endl;
 		}
-		if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '.') {    //Si personaje tiene Abajo caja y siguiente es meta...
+		else if (Abajo->getDato() == '$' && Abajo->getAbajo()->getDato() == '.') {    //Si personaje tiene Abajo caja y siguiente es meta...
 			Abajo->setDato('@');
 			Abajo->getAbajo()->setDato('M');
 			actual->setDato('0');
-			cout << "Abajo" << endl;
 		}
-		if (Abajo->getDato() == 'M' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y siguiente es meta...
+		else if (Abajo->getDato() == 'M' && Abajo->getAbajo()->getDato() == '0') {    //Si personaje tiene Abajo caja y siguiente es meta...
 			Abajo->setDato('X');
 			Abajo->getAbajo()->setDato('$');
 			actual->setDato('0');
-			cout << "Abajo" << endl;
 		}
 		//=============ARRIBA SIN CAJA====================//
-		if (actual->getDato() == 'X' && Abajo->getDato() != '#') {//Si Abajo está en meta pero arriba hay muro no suba...
+		else if (actual->getDato() == 'X' && Abajo->getDato() != '#') {//Si Abajo está en meta pero arriba hay muro no suba...
 			Abajo->setDato('@');
 			actual->setDato('.');
-			cout << "Abajo" << endl;
 		}
-		if (Abajo->getDato() == '0') {            //Si Abajo de personaje es vacío
+		else if (Abajo->getDato() == '0') {            //Si Abajo de personaje es vacío
 			Abajo->setDato(actual->getDato());
 			actual->setDato('0');
-			cout << "Abajo" << endl;
 		}
-		if (Abajo->getDato() == '.') {    //Si Abajo de personaje hay meta setea X para saber que está sobre...
+		else if (Abajo->getDato() == '.') {    //Si Abajo de personaje hay meta setea X para saber que está sobre...
 			Abajo->setDato('X');
 			actual->setDato('0');
-			cout << "Abajo" << endl;
 		}
 
-		obj->desplegar(head2);
 		cargaMapa(head2);
 		pantallaJuego->display();
 	}
@@ -951,19 +842,16 @@ void Juego::crearGridCopia(string nivel)
 	obj->cargarNivel(nivel);
 	obj->cargarLista(9, 9, head2);
 	cargaMapa(head2);
-	cout << "Base cargada";
-	//pantallaJuego->display();
 }
 
 void Juego::verRepeticion()
 {
 	pantallaJuego->clear();
-	Time delay = milliseconds(500);
+	Time delay = milliseconds(1);
 	cargaMapa(head2);
 	pantallaJuego->display();
 	for (int i : rep()) {
 		sleep(delay);
-		cout << i << "rep" << endl;
 		moverRep(i);
 	}
 }

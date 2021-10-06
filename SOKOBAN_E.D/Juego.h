@@ -41,7 +41,6 @@ class Juego
 	public:
 		Juego(int ancho, int alto, string titu, string nivel);
 		void gameloop(string nivel);
-		void dibujar();
 		void ejecutar();
 
 		void crearGrid(string nivel);

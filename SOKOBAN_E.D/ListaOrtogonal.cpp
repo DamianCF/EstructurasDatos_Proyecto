@@ -22,7 +22,6 @@ void ListaOrtogonal::cargarLista(int n, int m, Nodo*& head)
 					head = p;
 				}
 				q = p;
-				//j+=1;
 			}
 			else
 			{
@@ -89,14 +88,11 @@ void ListaOrtogonal::cargarNivel(string lvlName)
 		string direccion = "Mapas/Nivel" + lvlName + ".txt";
 		archivo = fopen(direccion.c_str(), "r");
 	}
-	
-    //archivo = fopen(direccion.c_str(), "r");
 
     if (archivo == NULL) {
         printf("\nError de apertura del archivo. \n\n");
     }
     else {
-        printf("\nEl contenido del archivo de prueba es \n\n");
         while (feof(archivo) == 0) {
             caracter = fgetc(archivo);
             if (caracter != EOF)
@@ -137,7 +133,6 @@ void ListaOrtogonal::cargarNivelGuardado()
 		printf("\nError de apertura del archivo. \n\n");
 	}
 	else {
-		printf("\nEl contenido del archivo de prueba es \n\n");
 		while (feof(archivo) == 0) {
 			caracter = fgetc(archivo);
 			if (caracter != EOF)
